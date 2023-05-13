@@ -3,12 +3,15 @@ int main(){
     double b = -20.9;
     if(a<=b)        
     a+=b;
-	&
     return a;
-
-
+    int c=0;
+int d=0;
+	while(1) aaaa=1;
+	switch (dddd){
+	case 2 : ma=2;
+	default: break;
+}	
     //test
    /*test
    */
-
 }

@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include "lexicalana.h"
+#include "lex.yy.h"
+#include <QDebug>
 namespace Ui {
 class lexicalRes;
 }
@@ -14,7 +16,7 @@ class lexicalRes : public QWidget
 public:
     explicit lexicalRes(QWidget *parent = nullptr);
     ~lexicalRes();
-    void setText1(QString s);
+    void setTable();
     QString path;
 
 private slots:

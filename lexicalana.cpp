@@ -86,7 +86,10 @@ void LexicalAna::on_pushButton_4_clicked()
 {
     this->close();
     lexicalRes *res=new lexicalRes();
+    res->path=ui->lineEdit->text();
+
     res->show();
+    res->setTable();
 
 }
 

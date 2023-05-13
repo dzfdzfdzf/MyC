@@ -9,6 +9,8 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    IDtable.cpp \
+    lex.yy.cpp \
     lexicalana.cpp \
     lexicalres.cpp \
     main.cpp \
@@ -16,6 +18,8 @@ SOURCES += \
     welcome.cpp
 
 HEADERS += \
+    IDtable.h \
+    lex.yy.h \
     lexicalana.h \
     lexicalres.h \
     mainwindow.h \
