@@ -11,11 +11,12 @@ CONFIG += c++17
 SOURCES += \
     IDtable.cpp \
     lex.yy.cpp \
-    lex.yy2.cpp \
     lexicalana.cpp \
     lexicalres.cpp \
     main.cpp \
     mainwindow.cpp \
+    syntacticana.cpp \
+    syntacticres.cpp \
     welcome.cpp \
     y.tab.cpp
 
@@ -25,6 +26,8 @@ HEADERS += \
     lexicalana.h \
     lexicalres.h \
     mainwindow.h \
+    syntacticana.h \
+    syntacticres.h \
     welcome.h \
     y.tab.h
 
@@ -32,6 +35,8 @@ FORMS += \
     lexicalana.ui \
     lexicalres.ui \
     mainwindow.ui \
+    syntacticana.ui \
+    syntacticres.ui \
     welcome.ui
 
 # Default rules for deployment.

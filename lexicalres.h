@@ -3,7 +3,8 @@
 
 #include <QWidget>
 #include "lexicalana.h"
-#include "lex.yy.h"
+//#include "lex.yy.h"
+#include "y.tab.h"
 #include <QDebug>
 namespace Ui {
 class lexicalRes;

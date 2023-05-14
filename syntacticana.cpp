@@ -1,9 +1,9 @@
-#include "lexicalana.h"
-#include "ui_lexicalana.h"
+#include "syntacticana.h"
+#include "ui_syntacticana.h"
 
-LexicalAna::LexicalAna(QWidget *parent) :
+syntacticana::syntacticana(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::LexicalAna)
+    ui(new Ui::syntacticana)
 {
     ui->setupUi(this);
     QFont font1=ui->label->font();
@@ -15,15 +15,33 @@ LexicalAna::LexicalAna(QWidget *parent) :
     ui->label->setFont(font1);
     ui->lineEdit->setFont(font2);
     ui->plainTextEdit->setFont(font3);
-    setWindowTitle("词法分析");
+    setWindowTitle("语法分析");
 }
 
-LexicalAna::~LexicalAna()
+syntacticana::~syntacticana()
 {
     delete ui;
 }
 
-void LexicalAna::on_pushButton_clicked()
+void syntacticana::on_pushButton_5_clicked()
+{
+    this->close();
+    MainWindow *mw=new MainWindow();
+    mw->show();
+}
+
+
+void syntacticana::on_pushButton_clicked()
+{
+    QString filePath = QFileDialog::getOpenFileName(this, tr("选择文件"), "", tr("Text Files (*.txt);;All Files (*)"));
+
+      if (!filePath.isEmpty()) {
+          ui->lineEdit->setText(filePath);
+      }
+}
+
+
+void syntacticana::on_pushButton_2_clicked()
 {
     QString path=ui->lineEdit->text();
     QFileInfo fileInfo(path);
@@ -47,13 +65,7 @@ void LexicalAna::on_pushButton_clicked()
 }
 
 
-void LexicalAna::on_lineEdit_returnPressed()
-{
-    ui->pushButton->click();
-}
-
-
-void LexicalAna::on_pushButton_2_clicked()
+void syntacticana::on_pushButton_4_clicked()
 {
     QString filePath = ui->lineEdit->text();
        QFile file(filePath);
@@ -72,32 +84,18 @@ void LexicalAna::on_pushButton_2_clicked()
 }
 
 
-void LexicalAna::on_pushButton_3_clicked()
-{
-    QString filePath = QFileDialog::getOpenFileName(this, tr("选择文件"), "", tr("Text Files (*.txt);;All Files (*)"));
-
-      if (!filePath.isEmpty()) {
-          ui->lineEdit->setText(filePath);
-      }
-}
-
-
-void LexicalAna::on_pushButton_4_clicked()
+void syntacticana::on_pushButton_3_clicked()
 {
     this->close();
-    lexicalRes *res=new lexicalRes();
+    syntacticres *res=new syntacticres();
     res->path=ui->lineEdit->text();
-
     res->show();
-    res->setTable();
-
+    res->setRes();
 }
 
 
-void LexicalAna::on_pushButton_5_clicked()
+void syntacticana::on_lineEdit_returnPressed()
 {
-    this->close();
-    MainWindow *mw=new MainWindow();
-    mw->show();
+    ui->pushButton->click();
 }
 

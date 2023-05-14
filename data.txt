@@ -1,25 +1,5 @@
-int main(){
-  &
-  |
-  ?
-  int a=1;
-  double da= 1.11;
-  for(int i=1;i<=10;i=i+1){
-    int b=2;
-    a=a+1;
-  }
-  //t1
-  while(1){
-     int c=3;
-     break;
-  }
-  switch(c){
-    case 1:break;
-    default:break;
- }
-  /* test
-     test
-  */
-  ?
+int x(){
+  int a=-1;
+  int b=2;
   return 0;
 }

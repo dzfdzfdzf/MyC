@@ -34,6 +34,7 @@
 
 
 /* Tokens.  */
+void submain(const char* filename);
 #ifndef YYTOKENTYPE
 # define YYTOKENTYPE
    /* Put the tokens into the symbol table, so that GDB and other debuggers

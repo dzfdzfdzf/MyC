@@ -34,3 +34,11 @@ void MainWindow::on_pushButton_2_clicked()
     lex->show();
 }
 
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    this->close();
+    syntacticana *syn=new syntacticana();
+    syn->show();
+}
+
