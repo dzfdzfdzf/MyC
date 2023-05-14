@@ -1,17 +1,25 @@
 int main(){
-    int aaaa = 10;
-    double b = -20.9;
-    if(a<=b)        
-    a+=b;
-    return a;
-    int c=0;
-int d=0;
-	while(1) aaaa=1;
-	switch (dddd){
-	case 2 : ma=2;
-	default: break;
-}	
-    //test
-   /*test
-   */
+  &
+  |
+  ?
+  int a=1;
+  double da= 1.11;
+  for(int i=1;i<=10;i=i+1){
+    int b=2;
+    a=a+1;
+  }
+  //t1
+  while(1){
+     int c=3;
+     break;
+  }
+  switch(c){
+    case 1:break;
+    default:break;
+ }
+  /* test
+     test
+  */
+  ?
+  return 0;
 }

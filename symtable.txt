@@ -1,7 +1,6 @@
-b			
-dddd			
-ma			
-a			
-aaaa			
 c			
-d			
+b			
+da			
+main			
+i			
+a			

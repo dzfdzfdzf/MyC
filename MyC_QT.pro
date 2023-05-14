@@ -11,11 +11,13 @@ CONFIG += c++17
 SOURCES += \
     IDtable.cpp \
     lex.yy.cpp \
+    lex.yy2.cpp \
     lexicalana.cpp \
     lexicalres.cpp \
     main.cpp \
     mainwindow.cpp \
-    welcome.cpp
+    welcome.cpp \
+    y.tab.cpp
 
 HEADERS += \
     IDtable.h \
@@ -23,7 +25,8 @@ HEADERS += \
     lexicalana.h \
     lexicalres.h \
     mainwindow.h \
-    welcome.h
+    welcome.h \
+    y.tab.h
 
 FORMS += \
     lexicalana.ui \

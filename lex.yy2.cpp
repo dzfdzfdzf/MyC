@@ -286,18 +286,18 @@ static void yy_fatal_error YY_PROTO(( yyconst char msg[] ));
 #define YY_END_OF_BUFFER 44
 static yyconst short int yy_accept[107] =
     {   0,
-        0,    0,   44,   42,   41,    1,   40,   42,   42,   20,
-       21,   27,   25,   19,   26,   24,   28,   38,   38,   18,
-       17,   32,   16,   31,   39,   39,   39,   39,   39,   39,
-       39,   39,   39,   39,   39,   22,   42,   23,   36,   29,
-        0,   37,    0,   38,   34,   35,   33,   39,   39,   39,
-       39,   39,   39,   39,   39,   39,   11,   39,   39,   39,
-       39,   39,   30,    0,    0,   37,   38,   39,   39,   39,
-       39,   39,   39,   39,    9,    2,   39,   39,   39,   39,
-       37,   39,   15,   39,   39,   39,   12,   39,   39,   39,
-        6,   39,    8,    3,   39,   39,    5,   39,   39,   10,
+        0,    0,   44,   42,   39,    1,   38,   42,   42,   20,
+       21,   27,   25,   19,   26,   24,   28,   40,   40,   18,
+       17,   32,   16,   31,   41,   41,   41,   41,   41,   41,
+       41,   41,   41,   41,   41,   22,   42,   23,   36,   29,
+        0,   37,    0,   40,   34,   35,   33,   41,   41,   41,
+       41,   41,   41,   41,   41,   41,   11,   41,   41,   41,
+       41,   41,   30,    0,    0,   37,   40,   41,   41,   41,
+       41,   41,   41,   41,    9,    2,   41,   41,   41,   41,
+       37,   41,   15,   41,   41,   41,   12,   41,   41,   41,
+        6,   41,    8,    3,   41,   41,    5,   41,   41,   10,
 
-       39,    4,    7,   13,   14,    0
+       41,    4,    7,   13,   14,    0
     } ;
 
 static yyconst int yy_ec[256] =
@@ -430,16 +430,18 @@ static char *yy_last_accepting_cpos;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "MyC.l"
+#line 1 "MyC2.l"
 #define INITIAL 0
-#line 2 "MyC.l"
+#line 3 "MyC2.l"
 	#include<stdio.h>
-	#include "IDtable.h"
-	IDtable idt;
+	//#include "IDtable.h"
+	
+	#include"y.tab.h"
+	//IDtable idt;
 	FILE * yyout2;
 	int line=1;
-	int cnt=0; //id个数
-#line 443 "lex.yy.c"
+
+#line 445 "lex.yy.c"
 
 /* Macros after this point can all be overridden by user definitions in
  * section 1.
@@ -586,13 +588,13 @@ YY_MALLOC_DECL
 
 YY_DECL
 	{
-	yy_state_type yy_current_state;
-	char *yy_cp, *yy_bp;
-	int yy_act;
+	register yy_state_type yy_current_state;
+	register char *yy_cp, *yy_bp;
+	register int yy_act;
 
-#line 56 "MyC.l"
+#line 59 "MyC2.l"
 
-#line 596 "lex.yy.c"
+#line 598 "lex.yy.c"
 
 	if ( yy_init )
 		{
@@ -634,7 +636,7 @@ YY_DECL
 yy_match:
 		do
 			{
-			 YY_CHAR yy_c = yy_ec[YY_SC_TO_UI(*yy_cp)];
+			register YY_CHAR yy_c = yy_ec[YY_SC_TO_UI(*yy_cp)];
 			if ( yy_accept[yy_current_state] )
 				{
 				yy_last_accepting_state = yy_current_state;
@@ -677,220 +679,220 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 57 "MyC.l"
-{++line;}
+#line 60 "MyC2.l"
+{line++;}  
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 58 "MyC.l"
-{fprintf(yyout,"line%d,%s: (INT, _)\n",line,yytext);}
+#line 61 "MyC2.l"
+{return INT;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 59 "MyC.l"
-{fprintf(yyout,"line%d,%s: (CONST, _)\n",line,yytext);}
+#line 62 "MyC2.l"
+{return CONST;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 60 "MyC.l"
-{fprintf(yyout,"line%d,%s: (DOUBLE, _)\n",line,yytext);}
+#line 63 "MyC2.l"
+{return DOUBLE;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 61 "MyC.l"
-{fprintf(yyout,"line%d,%s: (FLOAT, _)\n",line,yytext);}
+#line 64 "MyC2.l"
+{return FLOAT;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 62 "MyC.l"
-{fprintf(yyout,"line%d,%s: (VOID, _)\n",line,yytext);}
+#line 65 "MyC2.l"
+{return VOID;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 63 "MyC.l"
-{fprintf(yyout,"line%d,%s: (RETURN, _)\n",line,yytext);}
+#line 66 "MyC2.l"
+{return RETURN;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 64 "MyC.l"
-{fprintf(yyout,"line%d,%s: (BREAK, _)\n",line,yytext);}
+#line 67 "MyC2.l"
+{return BREAK;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 65 "MyC.l"
-{fprintf(yyout,"line%d,%s: (FOR, _)\n",line,yytext);}
+#line 68 "MyC2.l"
+{return FOR;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 66 "MyC.l"
-{fprintf(yyout,"line%d,%s: (WHILE, _)\n",line,yytext);}
+#line 69 "MyC2.l"
+{return WHILE;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 67 "MyC.l"
-{fprintf(yyout,"line%d,%s: (IF, _)\n",line,yytext);}
+#line 70 "MyC2.l"
+{return IF;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 68 "MyC.l"
-{fprintf(yyout,"line%d,%s: (ELSE, _)\n",line,yytext);}
+#line 71 "MyC2.l"
+{return ELSE;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 69 "MyC.l"
-{fprintf(yyout,"line%d,%s: (SWITCH, _)\n",line,yytext);}
+#line 72 "MyC2.l"
+{return SWITCH;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 70 "MyC.l"
-{fprintf(yyout,"line%d,%s: (DEFAULT, _)\n",line,yytext);}
+#line 73 "MyC2.l"
+{return DEFAULT;}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 71 "MyC.l"
-{fprintf(yyout,"line%d,%s: (CASE, _)\n",line,yytext);}
+#line 74 "MyC2.l"
+{return CASE;}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 72 "MyC.l"
-{fprintf(yyout,"line%d,%s: (ASSIGN, _)\n",line,yytext);}
+#line 76 "MyC2.l"
+{return ASSIGN;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 73 "MyC.l"
-{fprintf(yyout,"line%d,%s: (SEMI, _)\n",line,yytext);}
+#line 77 "MyC2.l"
+{return SEMI;}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 74 "MyC.l"
-{fprintf(yyout,"line%d,%s: (COLON, _)\n",line,yytext);}
+#line 78 "MyC2.l"
+{return COLON;}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 75 "MyC.l"
-{fprintf(yyout,"line%d,%s: (COMMA, _)\n",line,yytext);}
+#line 79 "MyC2.l"
+{return COMMA;}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 76 "MyC.l"
-{fprintf(yyout,"line%d,%s: (LB, _)\n",line,yytext);}
+#line 80 "MyC2.l"
+{return LB;}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 77 "MyC.l"
-{fprintf(yyout,"line%d,%s: (RB, _)\n",line,yytext);}
+#line 81 "MyC2.l"
+{return RB;}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 78 "MyC.l"
-{fprintf(yyout,"line%d,%s: (LBB, _)\n",line,yytext);}
+#line 82 "MyC2.l"
+{return LBB;}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 79 "MyC.l"
-{fprintf(yyout,"line%d,%s: (RBB, _)\n",line,yytext);}
+#line 83 "MyC2.l"
+{return RBB;}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 80 "MyC.l"
-{fprintf(yyout,"line%d,%s: (DOT, _)\n",line,yytext);}
+#line 84 "MyC2.l"
+{return DOT;}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 81 "MyC.l"
-{fprintf(yyout,"line%d,%s: (ADD, _)\n",line,yytext);}
+#line 85 "MyC2.l"
+{return ADD;}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 82 "MyC.l"
-{fprintf(yyout,"line%d,%s: (MINUS, _)\n",line,yytext);}
+#line 86 "MyC2.l"
+{return MINUS;}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 83 "MyC.l"
-{fprintf(yyout,"line%d,%s: (TIMES, _)\n",line,yytext);}
+#line 87 "MyC2.l"
+{return TIMES;}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 84 "MyC.l"
-{fprintf(yyout,"line%d,%s: (DIVIDE, _)\n",line,yytext);}
+#line 88 "MyC2.l"
+{return DIVIDE;}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 85 "MyC.l"
-{fprintf(yyout,"line%d,%s: (DAND, _)\n",line,yytext);}
+#line 89 "MyC2.l"
+{return DAND;}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 86 "MyC.l"
-{fprintf(yyout,"line%d,%s: (DOR, _)\n",line,yytext);}
+#line 90 "MyC2.l"
+{return DOR;}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 87 "MyC.l"
-{fprintf(yyout,"line%d,%s: (GREATER, _)\n",line,yytext);}
+#line 91 "MyC2.l"
+{return GREATER;}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 88 "MyC.l"
-{fprintf(yyout,"line%d,%s: (LESS, _)\n",line,yytext);}
+#line 92 "MyC2.l"
+{return LESS;}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 89 "MyC.l"
-{fprintf(yyout,"line%d,%s: (GREATEREQUAL, _)\n",line,yytext);}
+#line 93 "MyC2.l"
+{return GREATEREQUAL;}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 90 "MyC.l"
-{fprintf(yyout,"line%d,%s: (LESSEQUAL, _)\n",line,yytext);}
+#line 94 "MyC2.l"
+{return LESSEQUAL;}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 91 "MyC.l"
-{fprintf(yyout,"line%d,%s: (EQUAL, _)\n",line,yytext);}
+#line 95 "MyC2.l"
+{return EQUAL;}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 92 "MyC.l"
-{fprintf(yyout,"line%d,%s: (NOTEQUAL, _)\n",line,yytext);}
+#line 96 "MyC2.l"
+{return NOTEQUAL;}
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 93 "MyC.l"
-{fprintf(yyout,"line%d,%s: This is comment!\n",line,yytext);}
+#line 97 "MyC2.l"
+{}
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 94 "MyC.l"
-{fprintf(yyout,"line%d,%s: (CONSTANTNUM, %s)\n",line,yytext,yytext);}
+#line 98 "MyC2.l"
+{}
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 96 "MyC.l"
-{fprintf(yyout,"line%d,%s: (ID, %s)\n",line,yytext,yytext);std::string name=yytext; Symbol * symbol=idt.myLookup(name); if(!symbol) {idt.myInsert(name,"",""); cnt++;}}
+#line 99 "MyC2.l"
+{}
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 98 "MyC.l"
-{}
+#line 100 "MyC2.l"
+{return CONSTANTNUM;}
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 99 "MyC.l"
-{}
+#line 101 "MyC2.l"
+{return ID;}
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 100 "MyC.l"
-{fprintf(yyout,"On line %d,Wrong character:  %s\n",line,yytext);}
+#line 102 "MyC2.l"
+{printf("On line %d,Wrong character:  %s\n",line,yytext);}
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 104 "MyC.l"
+#line 105 "MyC2.l"
 ECHO;
 	YY_BREAK
-#line 894 "lex.yy.c"
+#line 896 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1034,9 +1036,9 @@ case YY_STATE_EOF(INITIAL):
 
 static int yy_get_next_buffer()
 	{
-	 char *dest = yy_current_buffer->yy_ch_buf;
-	 char *source = yytext_ptr;
-	 int number_to_move, i;
+	register char *dest = yy_current_buffer->yy_ch_buf;
+	register char *source = yytext_ptr;
+	register int number_to_move, i;
 	int ret_val;
 
 	if ( yy_c_buf_p > &yy_current_buffer->yy_ch_buf[yy_n_chars + 1] )
@@ -1166,14 +1168,14 @@ static int yy_get_next_buffer()
 
 static yy_state_type yy_get_previous_state()
 	{
-	yy_state_type yy_current_state;
-	char *yy_cp;
+	register yy_state_type yy_current_state;
+	register char *yy_cp;
 
 	yy_current_state = yy_start;
 
 	for ( yy_cp = yytext_ptr + YY_MORE_ADJ; yy_cp < yy_c_buf_p; ++yy_cp )
 		{
-		YY_CHAR yy_c = (*yy_cp ? yy_ec[YY_SC_TO_UI(*yy_cp)] : 1);
+		register YY_CHAR yy_c = (*yy_cp ? yy_ec[YY_SC_TO_UI(*yy_cp)] : 1);
 		if ( yy_accept[yy_current_state] )
 			{
 			yy_last_accepting_state = yy_current_state;
@@ -1205,10 +1207,10 @@ static yy_state_type yy_try_NUL_trans( yy_current_state )
 yy_state_type yy_current_state;
 #endif
 	{
-	int yy_is_jam;
-	char *yy_cp = yy_c_buf_p;
+	register int yy_is_jam;
+	register char *yy_cp = yy_c_buf_p;
 
-	YY_CHAR yy_c = 1;
+	register YY_CHAR yy_c = 1;
 	if ( yy_accept[yy_current_state] )
 		{
 		yy_last_accepting_state = yy_current_state;
@@ -1229,14 +1231,14 @@ yy_state_type yy_current_state;
 
 #ifndef YY_NO_UNPUT
 #ifdef YY_USE_PROTOS
-static void yyunput( int c, char *yy_bp )
+static void yyunput( int c, register char *yy_bp )
 #else
 static void yyunput( c, yy_bp )
 int c;
- char *yy_bp;
+register char *yy_bp;
 #endif
 	{
-	char *yy_cp = yy_c_buf_p;
+	register char *yy_cp = yy_c_buf_p;
 
 	/* undo effects of setting up yytext */
 	*yy_cp = yy_hold_char;
@@ -1244,10 +1246,10 @@ int c;
 	if ( yy_cp < yy_current_buffer->yy_ch_buf + 2 )
 		{ /* need to shift things up to make room */
 		/* +2 for EOB chars. */
-		int number_to_move = yy_n_chars + 2;
-		char *dest = &yy_current_buffer->yy_ch_buf[
+		register int number_to_move = yy_n_chars + 2;
+		register char *dest = &yy_current_buffer->yy_ch_buf[
 					yy_current_buffer->yy_buf_size + 2];
-		char *source =
+		register char *source =
 				&yy_current_buffer->yy_ch_buf[number_to_move];
 
 		while ( source > yy_current_buffer->yy_ch_buf )
@@ -1708,7 +1710,7 @@ yyconst char *s2;
 int n;
 #endif
 	{
-	 int i;
+	register int i;
 	for ( i = 0; i < n; ++i )
 		s1[i] = s2[i];
 	}
@@ -1722,7 +1724,7 @@ static int yy_flex_strlen( s )
 yyconst char *s;
 #endif
 	{
-	 int n;
+	register int n;
 	for ( n = 0; s[n]; ++n )
 		;
 
@@ -1776,18 +1778,8 @@ int main()
 	return 0;
 	}
 #endif
-#line 104 "MyC.l"
+#line 105 "MyC2.l"
 
-void submain(){
-	yyin=fopen("D:/CPLAB/MyC_QT/data.txt","r");
-	yyout=fopen("D:/CPLAB/MyC_QT/res.txt","w");
-	line=1;
-	yylex();
-	idt.myPrint();
-	fclose(yyin);
-    fclose(yyout);
-}
 int yywrap(){
 	return 1;
 }
-
