@@ -34,7 +34,7 @@
 
 
 /* Tokens.  */
-void submain(const char* filename);
+void submain(const char *filename);
 #ifndef YYTOKENTYPE
 # define YYTOKENTYPE
    /* Put the tokens into the symbol table, so that GDB and other debuggers
@@ -51,8 +51,8 @@ void submain(const char* filename);
      RETURN = 266,
      FOR = 267,
      WHILE = 268,
-     IF = 269,
-     ELSE = 270,
+     ELSE = 269,
+     IF = 270,
      SWITCH = 271,
      DEFAULT = 272,
      LB = 273,
@@ -91,8 +91,8 @@ void submain(const char* filename);
 #define RETURN 266
 #define FOR 267
 #define WHILE 268
-#define IF 269
-#define ELSE 270
+#define ELSE 269
+#define IF 270
 #define SWITCH 271
 #define DEFAULT 272
 #define LB 273
@@ -122,7 +122,26 @@ void submain(const char* filename);
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef int YYSTYPE;
+typedef union YYSTYPE
+{
+
+/* Line 1676 of yacc.c  */
+#line 23 "MyC2.y"
+
+    struct{std::string name;std::string type;std::string value;} IDAttr;
+    int nexlist;//next链
+    std::string num;//常数值
+    std::string op;//运算符
+    struct { int tlist,flist;} BAttr;//truelist，falselist
+    std::string quad;
+    std::string relop;//关系运算符
+    std::string IDType;
+
+
+
+/* Line 1676 of yacc.c  */
+#line 143 "y.tab.h"
+} YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

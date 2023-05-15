@@ -1,8 +1,9 @@
 #include "IDtable.h"
 IDtable idt;
 int line;
-void IDtable::myInsert(std::string name,std::string type,std::string value){
-	Symbol symbol={name,type,value};
+std::string curID;
+void IDtable::myInsert(std::string name,std::string type,std::string value,std::string kind){
+	Symbol symbol={name,type,value,kind};
     table[name] = symbol;
 }
 
@@ -25,7 +26,7 @@ void IDtable::myPrint() {
 //	fprintf(yyout2,"Name\tType\tValue\t\n");
  for (auto& entry:table) {
         Symbol symbol = entry.second;
-        fprintf(yyout2,"%s\t%s\t%s\t\n",symbol.name.c_str(),symbol.type.c_str(),symbol.value.c_str());
+        fprintf(yyout2,"%s\t%s\t%s\t%s\t\n",symbol.name.c_str(),symbol.type.c_str(),symbol.value.c_str(),symbol.kind.c_str());
     } 
  fclose(yyout2);
          //    for (auto& entry : table) {

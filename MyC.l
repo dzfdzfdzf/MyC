@@ -9,6 +9,7 @@
 	extern FILE *yyout;
 	extern int line;
 	//int line=1;
+	extern std::string curID;
 	int cnt=0; //id个数
 %}
 INT int
@@ -98,7 +99,7 @@ ERROR  .
 {COMMENT} {fprintf(yyout,"line%d,%s: This is comment!\n",line,yytext);}
 {CONSTANTNUM} {fprintf(yyout,"line%d,%s: (CONSTANTNUM, %s)\n",line,yytext,yytext);return CONSTANTNUM;}
 
-{ID} {fprintf(yyout,"line%d,%s: (ID, %s)\n",line,yytext,yytext);std::string name=yytext; Symbol * symbol=idt.myLookup(name); if(!symbol) {idt.myInsert(name,"",""); cnt++;}return ID;}
+{ID} {fprintf(yyout,"line%d,%s: (ID, %s)\n",line,yytext,yytext);std::string name=yytext; Symbol * symbol=idt.myLookup(name); if(!symbol) {idt.myInsert(name,"","",""); cnt++;}key=name;return ID;}
 
 {SPACE} {}
 {TAB} {}
