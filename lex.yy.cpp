@@ -445,8 +445,9 @@ char *yytext;
 	extern FILE *yyout;
 	extern int line;
 	//int line=1;
+    extern int isError;
 	extern std::string curID;
-	int cnt=0; //id个数
+    extern int cnt; //id个数
 #line 451 "lex.yy.c"
 
 /* Macros after this point can all be overridden by user definitions in
@@ -594,9 +595,9 @@ YY_MALLOC_DECL
 
 YY_DECL
 	{
-	yy_state_type yy_current_state;
-	char *yy_cp, *yy_bp;
-	int yy_act;
+	 yy_state_type yy_current_state;
+	 char *yy_cp, *yy_bp;
+	 int yy_act;
 
 #line 62 "MyC.l"
 
@@ -876,7 +877,7 @@ YY_RULE_SETUP
 case 39:
 YY_RULE_SETUP
 #line 102 "MyC.l"
-{fprintf(yyout,"line%d,%s: (ID, %s)\n",line,yytext,yytext);std::string name=yytext; Symbol * symbol=idt.myLookup(name); if(!symbol) {idt.myInsert(name,"","",""); cnt++;}curID=name;return ID;}
+{fprintf(yyout,"line%d,%s: (ID, %s)\n",line,yytext,yytext);std::string name=yytext; curID=name;return ID;}
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
@@ -891,7 +892,7 @@ YY_RULE_SETUP
 case 42:
 YY_RULE_SETUP
 #line 106 "MyC.l"
-{fprintf(yyout,"On line %d,Wrong character:  %s\n",line,yytext);}
+{fprintf(yyout,"On line %d,Wrong character:  %s\n",line,yytext);isError=1;}
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
@@ -1244,7 +1245,7 @@ int c;
 char *yy_bp;
 #endif
 	{
-	 char *yy_cp = yy_c_buf_p;
+	char *yy_cp = yy_c_buf_p;
 
 	/* undo effects of setting up yytext */
 	*yy_cp = yy_hold_char;
@@ -1255,7 +1256,7 @@ char *yy_bp;
 		int number_to_move = yy_n_chars + 2;
 		char *dest = &yy_current_buffer->yy_ch_buf[
 					yy_current_buffer->yy_buf_size + 2];
-		 char *source =
+		char *source =
 				&yy_current_buffer->yy_ch_buf[number_to_move];
 
 		while ( source > yy_current_buffer->yy_ch_buf )

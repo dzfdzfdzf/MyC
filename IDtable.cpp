@@ -2,6 +2,8 @@
 IDtable idt;
 int line;
 std::string curID;
+int cnt;
+int isError;
 void IDtable::myInsert(std::string name,std::string type,std::string value,std::string kind){
 	Symbol symbol={name,type,value,kind};
     table[name] = symbol;
