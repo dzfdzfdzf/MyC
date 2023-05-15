@@ -1,6 +1,8 @@
 int x(){
   int a;
   int b;
-  @;
+  int c=1;
+  double d;
+  double e=1.1;
  
 }

@@ -444,11 +444,13 @@ char *yytext;
 	extern FILE *yyin;
 	extern FILE *yyout;
 	extern int line;
+	extern int cnt;
+	extern int isError;
 	//int line=1;
-    extern int isError;
 	extern std::string curID;
-    extern int cnt; //id个数
-#line 451 "lex.yy.c"
+	extern std::string curValue;
+	
+#line 454 "lex.yy.c"
 
 /* Macros after this point can all be overridden by user definitions in
  * section 1.
@@ -595,13 +597,13 @@ YY_MALLOC_DECL
 
 YY_DECL
 	{
-	 yy_state_type yy_current_state;
-	 char *yy_cp, *yy_bp;
-	 int yy_act;
+	yy_state_type yy_current_state;
+	char *yy_cp, *yy_bp;
+	int yy_act;
 
-#line 62 "MyC.l"
+#line 65 "MyC.l"
 
-#line 604 "lex.yy.c"
+#line 607 "lex.yy.c"
 
 	if ( yy_init )
 		{
@@ -643,7 +645,7 @@ YY_DECL
 yy_match:
 		do
 			{
-			 YY_CHAR yy_c = yy_ec[YY_SC_TO_UI(*yy_cp)];
+			YY_CHAR yy_c = yy_ec[YY_SC_TO_UI(*yy_cp)];
 			if ( yy_accept[yy_current_state] )
 				{
 				yy_last_accepting_state = yy_current_state;
@@ -686,220 +688,220 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 63 "MyC.l"
+#line 66 "MyC.l"
 {++line;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 64 "MyC.l"
+#line 67 "MyC.l"
 {fprintf(yyout,"line%d,%s: (INT, _)\n",line,yytext);return INT;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 65 "MyC.l"
+#line 68 "MyC.l"
 {fprintf(yyout,"line%d,%s: (CONST, _)\n",line,yytext);return CONST;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 66 "MyC.l"
+#line 69 "MyC.l"
 {fprintf(yyout,"line%d,%s: (DOUBLE, _)\n",line,yytext);return DOUBLE;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 67 "MyC.l"
+#line 70 "MyC.l"
 {fprintf(yyout,"line%d,%s: (FLOAT, _)\n",line,yytext);return FLOAT;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 68 "MyC.l"
+#line 71 "MyC.l"
 {fprintf(yyout,"line%d,%s: (VOID, _)\n",line,yytext);return VOID;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 69 "MyC.l"
+#line 72 "MyC.l"
 {fprintf(yyout,"line%d,%s: (RETURN, _)\n",line,yytext);return RETURN;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 70 "MyC.l"
+#line 73 "MyC.l"
 {fprintf(yyout,"line%d,%s: (BREAK, _)\n",line,yytext);return BREAK;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 71 "MyC.l"
+#line 74 "MyC.l"
 {fprintf(yyout,"line%d,%s: (FOR, _)\n",line,yytext);return FOR;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 72 "MyC.l"
+#line 75 "MyC.l"
 {fprintf(yyout,"line%d,%s: (WHILE, _)\n",line,yytext);return WHILE;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 73 "MyC.l"
+#line 76 "MyC.l"
 {fprintf(yyout,"line%d,%s: (IF, _)\n",line,yytext);return IF;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 74 "MyC.l"
+#line 77 "MyC.l"
 {fprintf(yyout,"line%d,%s: (ELSE, _)\n",line,yytext);return ELSE;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 75 "MyC.l"
+#line 78 "MyC.l"
 {fprintf(yyout,"line%d,%s: (SWITCH, _)\n",line,yytext);return SWITCH;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 76 "MyC.l"
+#line 79 "MyC.l"
 {fprintf(yyout,"line%d,%s: (DEFAULT, _)\n",line,yytext);return DEFAULT;}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 77 "MyC.l"
+#line 80 "MyC.l"
 {fprintf(yyout,"line%d,%s: (CASE, _)\n",line,yytext);return CASE;}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 78 "MyC.l"
+#line 81 "MyC.l"
 {fprintf(yyout,"line%d,%s: (ASSIGN, _)\n",line,yytext);return ASSIGN;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 79 "MyC.l"
+#line 82 "MyC.l"
 {fprintf(yyout,"line%d,%s: (SEMI, _)\n",line,yytext);return SEMI;}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 80 "MyC.l"
+#line 83 "MyC.l"
 {fprintf(yyout,"line%d,%s: (COLON, _)\n",line,yytext);return COLON;}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 81 "MyC.l"
+#line 84 "MyC.l"
 {fprintf(yyout,"line%d,%s: (COMMA, _)\n",line,yytext);return COMMA;}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 82 "MyC.l"
+#line 85 "MyC.l"
 {fprintf(yyout,"line%d,%s: (LB, _)\n",line,yytext);return LB;}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 83 "MyC.l"
+#line 86 "MyC.l"
 {fprintf(yyout,"line%d,%s: (RB, _)\n",line,yytext);return RB;}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 84 "MyC.l"
+#line 87 "MyC.l"
 {fprintf(yyout,"line%d,%s: (LBB, _)\n",line,yytext);return LBB;}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 85 "MyC.l"
+#line 88 "MyC.l"
 {fprintf(yyout,"line%d,%s: (RBB, _)\n",line,yytext);return RBB;}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 86 "MyC.l"
+#line 89 "MyC.l"
 {fprintf(yyout,"line%d,%s: (DOT, _)\n",line,yytext);return DOT;}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 87 "MyC.l"
+#line 90 "MyC.l"
 {fprintf(yyout,"line%d,%s: (ADD, _)\n",line,yytext);return ADD;}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 88 "MyC.l"
+#line 91 "MyC.l"
 {fprintf(yyout,"line%d,%s: (MINUS, _)\n",line,yytext);return MINUS;}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 89 "MyC.l"
+#line 92 "MyC.l"
 {fprintf(yyout,"line%d,%s: (TIMES, _)\n",line,yytext);return TIMES;}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 90 "MyC.l"
+#line 93 "MyC.l"
 {fprintf(yyout,"line%d,%s: (DIVIDE, _)\n",line,yytext);return DIVIDE;}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 91 "MyC.l"
+#line 94 "MyC.l"
 {fprintf(yyout,"line%d,%s: (DAND, _)\n",line,yytext);return DAND;}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 92 "MyC.l"
+#line 95 "MyC.l"
 {fprintf(yyout,"line%d,%s: (DOR, _)\n",line,yytext);return DOR;}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 93 "MyC.l"
+#line 96 "MyC.l"
 {fprintf(yyout,"line%d,%s: (GREATER, _)\n",line,yytext);return GREATER;}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 94 "MyC.l"
+#line 97 "MyC.l"
 {fprintf(yyout,"line%d,%s: (LESS, _)\n",line,yytext);return LESS;}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 95 "MyC.l"
+#line 98 "MyC.l"
 {fprintf(yyout,"line%d,%s: (GREATEREQUAL, _)\n",line,yytext);return GREATEREQUAL;}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 96 "MyC.l"
+#line 99 "MyC.l"
 {fprintf(yyout,"line%d,%s: (LESSEQUAL, _)\n",line,yytext);return LESSEQUAL;}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 97 "MyC.l"
+#line 100 "MyC.l"
 {fprintf(yyout,"line%d,%s: (EQUAL, _)\n",line,yytext);return EQUAL;}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 98 "MyC.l"
+#line 101 "MyC.l"
 {fprintf(yyout,"line%d,%s: (NOTEQUAL, _)\n",line,yytext);return NOTEQUAL;}
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 99 "MyC.l"
+#line 102 "MyC.l"
 {fprintf(yyout,"line%d,%s: This is comment!\n",line,yytext);}
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 100 "MyC.l"
-{fprintf(yyout,"line%d,%s: (CONSTANTNUM, %s)\n",line,yytext,yytext);return CONSTANTNUM;}
+#line 103 "MyC.l"
+{fprintf(yyout,"line%d,%s: (CONSTANTNUM, %s)\n",line,yytext,yytext);curValue=yytext; return CONSTANTNUM;}
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 102 "MyC.l"
+#line 105 "MyC.l"
 {fprintf(yyout,"line%d,%s: (ID, %s)\n",line,yytext,yytext);std::string name=yytext; curID=name;return ID;}
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 104 "MyC.l"
+#line 107 "MyC.l"
 {}
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 105 "MyC.l"
+#line 108 "MyC.l"
 {}
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 106 "MyC.l"
+#line 109 "MyC.l"
 {fprintf(yyout,"On line %d,Wrong character:  %s\n",line,yytext);isError=1;}
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 110 "MyC.l"
+#line 113 "MyC.l"
 ECHO;
 	YY_BREAK
-#line 902 "lex.yy.c"
+#line 905 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1182,7 +1184,7 @@ static yy_state_type yy_get_previous_state()
 
 	for ( yy_cp = yytext_ptr + YY_MORE_ADJ; yy_cp < yy_c_buf_p; ++yy_cp )
 		{
-		 YY_CHAR yy_c = (*yy_cp ? yy_ec[YY_SC_TO_UI(*yy_cp)] : 1);
+		YY_CHAR yy_c = (*yy_cp ? yy_ec[YY_SC_TO_UI(*yy_cp)] : 1);
 		if ( yy_accept[yy_current_state] )
 			{
 			yy_last_accepting_state = yy_current_state;
@@ -1785,7 +1787,7 @@ int main()
 	return 0;
 	}
 #endif
-#line 110 "MyC.l"
+#line 113 "MyC.l"
 
 //int main(){
 	//yyin=fopen("data.txt","r");

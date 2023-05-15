@@ -12,6 +12,7 @@
 	extern int isError;
 	//int line=1;
 	extern std::string curID;
+	extern std::string curValue;
 	int cnt=0; //id个数
 %}
 INT int
@@ -99,7 +100,7 @@ ERROR  .
 {EQUAL} {fprintf(yyout,"line%d,%s: (EQUAL, _)\n",line,yytext);return EQUAL;}
 {NOTEQUAL} {fprintf(yyout,"line%d,%s: (NOTEQUAL, _)\n",line,yytext);return NOTEQUAL;}
 {COMMENT} {fprintf(yyout,"line%d,%s: This is comment!\n",line,yytext);}
-{CONSTANTNUM} {fprintf(yyout,"line%d,%s: (CONSTANTNUM, %s)\n",line,yytext,yytext);return CONSTANTNUM;}
+{CONSTANTNUM} {fprintf(yyout,"line%d,%s: (CONSTANTNUM, %s)\n",line,yytext,yytext);curValue=yytext; return CONSTANTNUM;}
 
 {ID} {fprintf(yyout,"line%d,%s: (ID, %s)\n",line,yytext,yytext);std::string name=yytext; curID=name;return ID;}
 
