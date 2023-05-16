@@ -1,8 +1,14 @@
-int x(){
+	int x(){
   int a;
   int b;
   int c=1;
   double d;
   double e=1.1;
- 
+  int f=-c;
+  int bb=-2;
+  int bbb=-bb+2;
+  int ccc=2+2;
+  int ddd=-bbb;
+  while(+f<=1||-f<=2){ int ffff=4;}
+  int ee=2;
 }

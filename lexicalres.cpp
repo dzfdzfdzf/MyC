@@ -27,9 +27,9 @@ void lexicalRes::setTable(){
 //    qDebug()<<1;
     ui->tableWidget->setRowCount(0);
     ui->tableWidget->setWindowTitle("符号表");
-    ui->tableWidget->setColumnCount(4);
+    ui->tableWidget->setColumnCount(3);
     QStringList headers;
-    headers<<"Name"<<"Type"<<"Value"<<"kind";
+    headers<<"Name"<<"Type"<<"kind";
     ui->tableWidget->setHorizontalHeaderLabels(headers);
 
 //    QFile file(this->path);
@@ -57,7 +57,7 @@ void lexicalRes::setTable(){
            ui->tableWidget->insertRow(row);
 
            // 填充数据
-           for (int column = 0; column < 4; ++column)
+           for (int column = 0; column < 3; ++column)
            {
                QTableWidgetItem *item = new QTableWidgetItem(items[column]);
                ui->tableWidget->setItem(row, column, item);

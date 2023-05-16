@@ -1,4 +1,4 @@
-
+void submain(const char *filename);
 /* A Bison parser, made by GNU Bison 2.4.1.  */
 
 /* Skeleton interface for Bison's Yacc-like parsers in C
@@ -34,7 +34,6 @@
 
 
 /* Tokens.  */
-void submain(const char *filename);
 #ifndef YYTOKENTYPE
 # define YYTOKENTYPE
    /* Put the tokens into the symbol table, so that GDB and other debuggers
@@ -126,21 +125,23 @@ typedef union YYSTYPE
 {
 
 /* Line 1676 of yacc.c  */
-#line 23 "MyC2.y"
+#line 36 "MyC2.y"
 
-    struct{std::string name;std::string type;std::string value;} IDAttr;
-    int nexlist;//next链
-    std::string num;//常数值
-    std::string op;//运算符
-    struct { int tlist,flist;} BAttr;//truelist，falselist
-    std::string quad;
-    std::string relop;//关系运算符
-    std::string IDType;
+    struct{char name[15];char type[15];char value[150];char kind[15];} IDAttr;
+    int nexlist;//N
+    char num[150];//常数值
+    char op[15];//各种运算符
+    struct { int tlist,flist;} con;//truelist，falselist
+    int quad; //M
+    char IDType[15];
+    struct{char IDName[15];char IDValue[150];}ASS;//赋值语句
+    struct{char IDName[15];char IDValue[150];int isID;int tlist;int flist;}EXP;//EXP
+    char name[150];
 
 
 
 /* Line 1676 of yacc.c  */
-#line 143 "y.tab.h"
+#line 145 "y.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

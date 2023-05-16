@@ -29,7 +29,8 @@ void IDtable::myPrint() {
 //	fprintf(yyout2,"Name\tType\tValue\t\n");
  for (auto& entry:table) {
         Symbol symbol = entry.second;
-        fprintf(yyout2,"%s\t%s\t%s\t%s\t\n",symbol.name.c_str(),symbol.type.c_str(),symbol.value.c_str(),symbol.kind.c_str());
+//        fprintf(yyout2,"%s\t%s\t%s\t%s\t\n",symbol.name.c_str(),symbol.type.c_str(),symbol.value.c_str(),symbol.kind.c_str());
+        fprintf(yyout2,"%s\t%s\t%s\t\n",symbol.name.c_str(),symbol.type.c_str(),symbol.kind.c_str());
     } 
  fclose(yyout2);
          //    for (auto& entry : table) {
