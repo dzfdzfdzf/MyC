@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "syntacticana.h"
+
 namespace Ui {
 class syntacticres;
 }

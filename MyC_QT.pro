@@ -15,6 +15,8 @@ SOURCES += \
     lexicalres.cpp \
     main.cpp \
     mainwindow.cpp \
+    semanticana.cpp \
+    semanticres.cpp \
     syntacticana.cpp \
     syntacticres.cpp \
     welcome.cpp \
@@ -26,6 +28,8 @@ HEADERS += \
     lexicalana.h \
     lexicalres.h \
     mainwindow.h \
+    semanticana.h \
+    semanticres.h \
     syntacticana.h \
     syntacticres.h \
     welcome.h \
@@ -35,6 +39,8 @@ FORMS += \
     lexicalana.ui \
     lexicalres.ui \
     mainwindow.ui \
+    semanticana.ui \
+    semanticres.ui \
     syntacticana.ui \
     syntacticres.ui \
     welcome.ui

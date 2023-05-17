@@ -1,9 +1,9 @@
-#include "syntacticana.h"
-#include "ui_syntacticana.h"
+#include "semanticana.h"
+#include "ui_semanticana.h"
 
-syntacticana::syntacticana(QWidget *parent) :
+semanticana::semanticana(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::syntacticana)
+    ui(new Ui::semanticana)
 {
     ui->setupUi(this);
     QFont font1=ui->label->font();
@@ -15,23 +15,15 @@ syntacticana::syntacticana(QWidget *parent) :
     ui->label->setFont(font1);
     ui->lineEdit->setFont(font2);
     ui->plainTextEdit->setFont(font3);
-    setWindowTitle("语法分析");
+    setWindowTitle("语义分析");
 }
 
-syntacticana::~syntacticana()
+semanticana::~semanticana()
 {
     delete ui;
 }
 
-void syntacticana::on_pushButton_5_clicked()
-{
-    this->close();
-    MainWindow *mw=new MainWindow();
-    mw->show();
-}
-
-
-void syntacticana::on_pushButton_clicked()
+void semanticana::on_pushButton_clicked()
 {
     QString filePath = QFileDialog::getOpenFileName(this, tr("选择文件"), "", tr("Text Files (*.txt);;All Files (*)"));
 
@@ -41,7 +33,7 @@ void syntacticana::on_pushButton_clicked()
 }
 
 
-void syntacticana::on_pushButton_2_clicked()
+void semanticana::on_pushButton_2_clicked()
 {
     QString path=ui->lineEdit->text();
     QFileInfo fileInfo(path);
@@ -65,7 +57,13 @@ void syntacticana::on_pushButton_2_clicked()
 }
 
 
-void syntacticana::on_pushButton_4_clicked()
+void semanticana::on_lineEdit_returnPressed()
+{
+    ui->pushButton_2->click();
+}
+
+
+void semanticana::on_pushButton_3_clicked()
 {
     QString filePath = ui->lineEdit->text();
        QFile file(filePath);
@@ -84,18 +82,22 @@ void syntacticana::on_pushButton_4_clicked()
 }
 
 
-void syntacticana::on_pushButton_3_clicked()
+void semanticana::on_pushButton_4_clicked()
 {
     this->close();
-    syntacticres *res=new syntacticres();
+//    syntacticres *res=new syntacticres();
+    semanticres *res=new semanticres();
     res->path=ui->lineEdit->text();
     res->show();
     res->setRes();
+
 }
 
 
-void syntacticana::on_lineEdit_returnPressed()
+void semanticana::on_pushButton_5_clicked()
 {
-    ui->pushButton_2->click();
+    this->close();
+    MainWindow *mw=new MainWindow();
+    mw->show();
 }
 

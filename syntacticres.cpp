@@ -52,7 +52,7 @@ void syntacticres::setRes(){
           }
      QTextStream in2(&file2);
      QString content2 = in2.readAll();
-   qDebug()<<content2;
+//   qDebug()<<content2;
      ui->plainTextEdit_2->setPlainText(content2);
      ui->plainTextEdit_2->setReadOnly(1);
      file2.close();

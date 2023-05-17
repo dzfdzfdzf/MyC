@@ -42,3 +42,12 @@ void MainWindow::on_pushButton_3_clicked()
     syn->show();
 }
 
+
+void MainWindow::on_pushButton_clicked()
+{
+    this->close();
+    semanticana *sem=new semanticana();
+    sem->show();
+
+}
+
