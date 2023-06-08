@@ -38,7 +38,7 @@ int nexq=0;
     int nexlist;//N
     char num[150];//常数值
     char op[15];//各种运算符
-    struct { int tlist,flist;} con;//truelist，falselist
+    struct { int tlist,flist;} con;//truelist，falselist，条件语句
     int quad; //M
     char IDType[15];
     struct{char IDName[15];char IDValue[150];}ASS;//赋值语句
@@ -85,6 +85,7 @@ int nexq=0;
 %start START
 %%
 /*C代码入口*/
+
 START:
     Cprogram
 Cprogram: 

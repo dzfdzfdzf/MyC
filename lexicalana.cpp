@@ -1,6 +1,15 @@
+/**
+ * @file lexicalana.cpp
+ * @brief 词法分析界面
+ * @date 2023-5-24
+ * @author 杜忠璠
+*/
 #include "lexicalana.h"
 #include "ui_lexicalana.h"
-
+/**
+ * @brief 词法分析界面构造函数
+ * @param parent 父窗口
+*/
 LexicalAna::LexicalAna(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::LexicalAna)
@@ -17,12 +26,16 @@ LexicalAna::LexicalAna(QWidget *parent) :
     ui->plainTextEdit->setFont(font3);
     setWindowTitle("词法分析");
 }
-
+/**
+ * @brief 词法分析界面析构函数
+*/
 LexicalAna::~LexicalAna()
 {
     delete ui;
 }
-
+/**
+ * @brief 确认按钮槽函数
+*/
 void LexicalAna::on_pushButton_clicked()
 {
     QString path=ui->lineEdit->text();
@@ -46,13 +59,16 @@ void LexicalAna::on_pushButton_clicked()
     file.close();
 }
 
-
+/**
+ * @brief 回车键槽函数
+*/
 void LexicalAna::on_lineEdit_returnPressed()
 {
     ui->pushButton->click();
 }
-
-
+/**
+ * @brief 保存按钮槽函数
+*/
 void LexicalAna::on_pushButton_2_clicked()
 {
     QString filePath = ui->lineEdit->text();
@@ -71,7 +87,9 @@ void LexicalAna::on_pushButton_2_clicked()
        QMessageBox::information(this, tr("成功"), tr("文件已保存"));
 }
 
-
+/**
+ * @brief 选择文件按钮槽函数
+*/
 void LexicalAna::on_pushButton_3_clicked()
 {
     QString filePath = QFileDialog::getOpenFileName(this, tr("选择文件"), "", tr("Text Files (*.txt);;All Files (*)"));
@@ -81,7 +99,9 @@ void LexicalAna::on_pushButton_3_clicked()
       }
 }
 
-
+/**
+ * @brief 开始进行词法分析槽函数
+*/
 void LexicalAna::on_pushButton_4_clicked()
 {
     this->close();
@@ -93,7 +113,9 @@ void LexicalAna::on_pushButton_4_clicked()
 
 }
 
-
+/**
+ * @brief 返回按钮槽函数
+*/
 void LexicalAna::on_pushButton_5_clicked()
 {
     this->close();

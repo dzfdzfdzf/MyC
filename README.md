@@ -1,4 +1,2 @@
 # MyC
-WHU编译原理实验
-## 命令
-g++ -o a lex.yy.cpp IDtable.cpp
+WHU编译原理实验,包括词法分析、语法分析、语义分析

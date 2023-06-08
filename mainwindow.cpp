@@ -1,3 +1,10 @@
+/**
+ * @file mainwindow.cpp
+ * @brief 主界面
+ * @date 2023-5-24
+ * @author 杜忠璠
+ * 
+*/
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -20,13 +27,17 @@ MainWindow::MainWindow(QWidget *parent)
     ui->pushButton_3->setFont(font4);
     setWindowTitle("选择操作");
 }
-
+/**
+ * @brief 主界面析构函数
+*/
 MainWindow::~MainWindow()
 {
     delete ui;
 }
 
-
+/**
+ * @brief 词法分析按钮槽函数
+*/
 void MainWindow::on_pushButton_2_clicked()
 {
     this->close();
@@ -34,7 +45,9 @@ void MainWindow::on_pushButton_2_clicked()
     lex->show();
 }
 
-
+/**
+ * @brief 语法分析按钮槽函数
+*/
 void MainWindow::on_pushButton_3_clicked()
 {
     this->close();
@@ -42,7 +55,9 @@ void MainWindow::on_pushButton_3_clicked()
     syn->show();
 }
 
-
+/**
+ * @brief 语义分析按钮槽函数
+*/
 void MainWindow::on_pushButton_clicked()
 {
     this->close();

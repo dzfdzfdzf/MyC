@@ -1,6 +1,14 @@
+/**
+ * @file syntacticana.cpp
+ * @brief 语法分析界面
+ * @date 2023-05-31
+ * @author 杜忠璠
+*/
 #include "syntacticana.h"
 #include "ui_syntacticana.h"
-
+/**
+ * @brief 语法分析界面构造函数
+*/
 syntacticana::syntacticana(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::syntacticana)
@@ -17,12 +25,16 @@ syntacticana::syntacticana(QWidget *parent) :
     ui->plainTextEdit->setFont(font3);
     setWindowTitle("语法分析");
 }
-
+/**
+ * @brief 语法分析界面析构函数
+*/
 syntacticana::~syntacticana()
 {
     delete ui;
 }
-
+/**
+ * @brief 返回按钮槽函数 
+*/
 void syntacticana::on_pushButton_5_clicked()
 {
     this->close();
@@ -30,7 +42,9 @@ void syntacticana::on_pushButton_5_clicked()
     mw->show();
 }
 
-
+/**
+ * @brief 选择文件按钮槽函数
+*/
 void syntacticana::on_pushButton_clicked()
 {
     QString filePath = QFileDialog::getOpenFileName(this, tr("选择文件"), "", tr("Text Files (*.txt);;All Files (*)"));
@@ -40,7 +54,9 @@ void syntacticana::on_pushButton_clicked()
       }
 }
 
-
+/**
+ * @brief 读取文件按钮槽函数
+*/
 void syntacticana::on_pushButton_2_clicked()
 {
     QString path=ui->lineEdit->text();
@@ -64,7 +80,9 @@ void syntacticana::on_pushButton_2_clicked()
     file.close();
 }
 
-
+/**
+ * @brief 保存文件按钮槽函数
+*/
 void syntacticana::on_pushButton_4_clicked()
 {
     QString filePath = ui->lineEdit->text();
@@ -83,7 +101,9 @@ void syntacticana::on_pushButton_4_clicked()
        QMessageBox::information(this, tr("成功"), tr("文件已保存"));
 }
 
-
+/**
+ * @brief 语法分析按钮槽函数
+*/
 void syntacticana::on_pushButton_3_clicked()
 {
     this->close();
@@ -93,7 +113,9 @@ void syntacticana::on_pushButton_3_clicked()
     res->setRes();
 }
 
-
+/**
+ * @brief 回车槽函数
+*/
 void syntacticana::on_lineEdit_returnPressed()
 {
     ui->pushButton_2->click();

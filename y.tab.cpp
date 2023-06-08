@@ -41,6 +41,12 @@
    There are some unavoidable exceptions within include files to
    define necessary library symbols; they are noted "INFRINGES ON
    USER NAME SPACE" below.  */
+/**
+ * @file y.tab.cpp
+ * @brief bison生成的语法分析器,同时完成语义分析
+ * @date 2023-6-1
+ * @author 杜忠璠
+*/
 
 /* Identify Bison output.  */
 #define YYBISON 1
@@ -2656,6 +2662,10 @@ yyreturn:
 /* Line 1675 of yacc.c  */
 #line 634 "MyC2.y"
 
+/**
+ * @brief 主函数
+ * @param filename 待分析的文件路径
+*/
 void submain(const char *filename){
     //const char* filename="data.txt";
     FILE *file = fopen(filename, "r");
@@ -2667,10 +2677,10 @@ void submain(const char *filename){
     fi2 =fopen("result.txt","w");
     fi3=fopen("Quad.txt","w");
     line=1;
-    yyparse();
+    yyparse(); //调用bison分析
     idt.myPrint();
     idt.myClear();
-    pquad();
+    pquad(); //打印四元式
     nexq=0;
     fclose(fi);
    fclose(fi2);
@@ -2678,18 +2688,29 @@ void submain(const char *filename){
     fclose(file);
     fclose(file2);
 }
+/**
+ * @brief 新建临时变量
+ * @return 临时变量的名字
+*/
 std::string NewTemp(){
     static  int cnt=0;
     std::string t="T"+std::to_string(cnt++);
     tempidt.table[t].name=t;
     return t;
 }
+
+/**
+ * @brief 地址回填函数
+ * @param l 回填的首地址(第一个要回填的四元式的序号，下一个四元式的序号在qualist[l].res中)
+ * @param t 回填的值
+*/
 void  BackPatch(int l,int t){
     int temp=l;
     if(l>=nexq)return;
     while(temp){
         std::string temp2=qualist[temp].res;
         qualist[temp].res="("+std::to_string(t+1)+")";
+        //去掉括号，转为int
         if(temp2.size()>=2){
             temp2=temp2.erase(0,1);
             temp2=temp2.erase(temp2.size()-1,1);
@@ -2697,6 +2718,13 @@ void  BackPatch(int l,int t){
         temp=std::stoi(temp2);
     }
 }
+
+/**
+ * @brief 合并，将l2的尾部接到l1的头部
+ * @param l1 
+ * @param l2 
+ * @return 链头，即第一个四元式的序号
+*/
 int Merge(int l1,int l2){
     if(l1>=nexq&&l2>=nexq)return 0;
     if(l1>=nexq)return l2;
@@ -2709,10 +2737,26 @@ int Merge(int l1,int l2){
             temp2=temp2.erase(0,1);
             temp2=temp2.erase(temp2.size()-1,1);
         }
-    while(std::stoi(temp2))temp=std::stoi(temp2);
+    while(std::stoi(temp2)){
+
+      temp=std::stoi(temp2);
+      temp2=qualist[temp].res;
+       if(temp2.size()>=2){
+            temp2=temp2.erase(0,1);
+            temp2=temp2.erase(temp2.size()-1,1);
+        }
+    }
     qualist[temp].res="("+std::to_string(l1)+")";  
     return l2;
 }
+
+/**
+ * @brief 生成四元式
+ * @param op 操作符
+ * @param arg1 参数1
+ * @param arg2 参数2
+ * @param res 结果
+*/
 void GEN(std::string op,std::string arg1,std::string arg2,std::string res){
     qualist[nexq].op=op;
     qualist[nexq].arg1=arg1;
@@ -2720,11 +2764,19 @@ void GEN(std::string op,std::string arg1,std::string arg2,std::string res){
     qualist[nexq].res=res;
     nexq++;
 }
+
+/**
+ * @brief 打印四元式
+*/
 void pquad(){
     for(int i=0;i<nexq;++i){
         fprintf(fi3,"(%d)\t (%s\t%s\t%s\t%s\t)\n",i+1,qualist[i].op.c_str(),qualist[i].arg1.c_str(),qualist[i].arg2.c_str(),qualist[i].res.c_str());
     }
 }
+
+/**
+ * @brief 错误处理函数
+*/
 int yyerror(char *s)
 {
     fprintf(fi2,"line: %d  error: %s \n",line,s);

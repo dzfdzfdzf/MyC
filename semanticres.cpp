@@ -1,6 +1,15 @@
+/**
+ * @file semanticres.cpp
+ * @brief 语义分析结果界面
+ * @date 2023-5-31
+ * @author 杜忠璠
+*/
 #include "semanticres.h"
 #include "ui_semanticres.h"
 
+/**
+ * @brief 语义分析结果界面构造函数
+*/
 semanticres::semanticres(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::semanticres)
@@ -14,11 +23,12 @@ semanticres::semanticres(QWidget *parent) :
     ui->plainTextEdit->setFont(font2);
     setWindowTitle("语义分析结果");
 }
+/**
+ * @brief 语义分析结果界面显示结果
+*/
 void semanticres::setRes(){
     submain(this->path.toStdString().c_str());
-//    qDebug()<<1;
 
-//    QFile file2("D:/CPLAB/MyC_QT/res.txt");
      QFile file("Quad.txt");
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -28,16 +38,20 @@ void semanticres::setRes(){
           }
      QTextStream in(&file);
      QString content = in.readAll();
-//     qDebug()<<content;
      ui->plainTextEdit->setPlainText(content);
      ui->plainTextEdit->setReadOnly(1);
      file.close();
 }
+/**
+ * @brief 语义分析结果界面析构函数
+*/
 semanticres::~semanticres()
 {
     delete ui;
 }
-
+/**
+ * @brief 返回按钮槽函数
+*/
 void semanticres::on_pushButton_clicked()
 {
     this->close();

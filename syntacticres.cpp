@@ -1,6 +1,16 @@
+/**
+ * @file syntacticres.cpp
+ * @brief 语法分析结果界面
+ * @date 2023-05-31
+ * @author 杜忠璠
+*/
 #include "syntacticres.h"
 #include "ui_syntacticres.h"
 
+/**
+ * @brief 语法分析结果界面构造函数
+ * @param parent 父窗口
+*/
 syntacticres::syntacticres(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::syntacticres)
@@ -21,10 +31,17 @@ syntacticres::syntacticres(QWidget *parent) :
     setWindowTitle("语法分析结果");
 }
 
+/**
+ * @brief 语法分析结果界面析构函数
+*/
 syntacticres::~syntacticres()
 {
     delete ui;
 }
+
+/**
+ * @brief 语法分析结果界面显示结果
+*/
 void syntacticres::setRes(){
     submain(this->path.toStdString().c_str());
 //    qDebug()<<1;
@@ -58,6 +75,10 @@ void syntacticres::setRes(){
      file2.close();
 
 }
+
+/**
+ * @brief 返回按钮槽函数
+*/
 void syntacticres::on_pushButton_clicked()
 {
     this->close();

@@ -1,6 +1,16 @@
+/**
+ * @file semanticana.cpp
+ * @brief 语义分析界面
+ * @date 2023-05-31
+ * @author 杜忠璠
+*/
 #include "semanticana.h"
 #include "ui_semanticana.h"
 
+/**
+ * @brief 语义分析界面构造函数
+ * @param parent 父窗口
+*/
 semanticana::semanticana(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::semanticana)
@@ -18,11 +28,17 @@ semanticana::semanticana(QWidget *parent) :
     setWindowTitle("语义分析");
 }
 
+/**
+ * @brief 语义分析界面析构函数
+*/
 semanticana::~semanticana()
 {
     delete ui;
 }
 
+/**
+ * @brief 选择文件按钮槽函数
+*/
 void semanticana::on_pushButton_clicked()
 {
     QString filePath = QFileDialog::getOpenFileName(this, tr("选择文件"), "", tr("Text Files (*.txt);;All Files (*)"));
@@ -33,6 +49,9 @@ void semanticana::on_pushButton_clicked()
 }
 
 
+/**
+ * @brief 读取文件按钮槽函数
+*/
 void semanticana::on_pushButton_2_clicked()
 {
     QString path=ui->lineEdit->text();
@@ -56,13 +75,17 @@ void semanticana::on_pushButton_2_clicked()
     file.close();
 }
 
-
+/**
+ * @brief 回车键槽函数
+*/
 void semanticana::on_lineEdit_returnPressed()
 {
     ui->pushButton_2->click();
 }
 
-
+/**
+ * @brief 保存文件按钮槽函数
+*/
 void semanticana::on_pushButton_3_clicked()
 {
     QString filePath = ui->lineEdit->text();
@@ -81,7 +104,9 @@ void semanticana::on_pushButton_3_clicked()
        QMessageBox::information(this, tr("成功"), tr("文件已保存"));
 }
 
-
+/**
+ * @brief 查看语义分析结果按钮槽函数
+*/
 void semanticana::on_pushButton_4_clicked()
 {
     this->close();
@@ -93,7 +118,9 @@ void semanticana::on_pushButton_4_clicked()
 
 }
 
-
+/**
+ * @brief 返回按钮槽函数
+*/
 void semanticana::on_pushButton_5_clicked()
 {
     this->close();
