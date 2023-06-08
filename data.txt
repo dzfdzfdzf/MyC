@@ -1,4 +1,4 @@
-	int x(){
+int main(){
   int a;
   int b;
   int c=1;
@@ -9,7 +9,7 @@
   int bbb=-bb+2;
   int ccc=2+2;
   int ddd=-bbb;
-  while(+f<=1||-f<=2){ int ffff=4;}
+  while(f<=1||-f<=2){ int ffff=4;}
   if(-f>=4){int aaaaa=5;}
   if(-ccc>=4){int bbbbb=5;}else{int ccccc=5;}
   int ee=2;

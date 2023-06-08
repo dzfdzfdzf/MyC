@@ -417,6 +417,13 @@ ariexp
         $$.isID=1;
 
     }
+     | useID{
+        fprintf(fi,"ariexp -> useID\n");
+        strcpy($$.IDValue,$1.value);
+        strcpy($$.IDName,$1.name);
+        $$.isID=1;
+    }
+    
 
  /*
   *函数调用
@@ -437,6 +444,7 @@ vlist
     | value COMMA value{
         fprintf(fi,"vlist -> value COMMA value\n");
     }
+    ;
 /*
  *值
  *分为标识符和数字(这里变量只实现数字)
@@ -460,10 +468,7 @@ value
         strcpy($$,temp.c_str());
 
     }
-    | ID{
-        fprintf(fi,"value -> ID\n");
-        strcpy($$,$1.value);
-    }
+   
     ;
 useID
     :  ID{
@@ -538,6 +543,7 @@ conexp
         $$=nexq;
         GEN("J","_","_","(0)");
     }
+    ;
 ariop
     :   ADD {
         fprintf(fi,"ariop -> ADD\n");
