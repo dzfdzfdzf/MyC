@@ -1,9 +1,3 @@
-/**
- * @file y.tab.h
- * @brief 语法分析器的头文件
- * @date 2023-6-1
- * @author 杜忠璠
-*/
 void submain(const char *filename);
 /* A Bison parser, made by GNU Bison 2.4.1.  */
 
@@ -131,13 +125,13 @@ typedef union YYSTYPE
 {
 
 /* Line 1676 of yacc.c  */
-#line 36 "MyC2.y"
+#line 36 "MyC.y"
 
     struct{char name[15];char type[15];char value[150];char kind[15];} IDAttr;
     int nexlist;//N
     char num[150];//常数值
     char op[15];//各种运算符
-    struct { int tlist,flist;} con;//truelist，falselist，条件表达式
+    struct { int tlist,flist;} con;//truelist，falselist，条件语句
     int quad; //M
     char IDType[15];
     struct{char IDName[15];char IDValue[150];}ASS;//赋值语句

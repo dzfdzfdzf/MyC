@@ -16,7 +16,7 @@
 typedef struct Symbol{
 	std::string name; //变量名
 	std::string type;//变量类型
-	std::string value;  //变量值
+    std::string value;  //变量值,实际上没用到
     std::string kind; //变量还是函数
 }Symbol; 
 /**

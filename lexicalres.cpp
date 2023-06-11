@@ -43,7 +43,7 @@ void lexicalRes::setTable(){
     ui->tableWidget->setWindowTitle("符号表");
     ui->tableWidget->setColumnCount(3);
     QStringList headers;
-    headers<<"Name"<<"Type"<<"kind";
+    headers<<"Name"<<"Type"<<"Kind";
     ui->tableWidget->setHorizontalHeaderLabels(headers);
 
     QFile file("symtable.txt");

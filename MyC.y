@@ -84,25 +84,28 @@ int nexq=0;
 %type <nexlist>selstat;
 %start START
 %%
-/*C代码入口*/
 
+/*
+* 程序开始
+*/
 START:
-    Cprogram
+    Cprogram {
+        fprintf(fi, " START -> Cprogram\n");
+        if(!isError)fprintf(fi2,"Success!\n");
+        else fprintf(fi2,"Fail!\n");
+   } 
+   ;
 Cprogram: 
     code {
         fprintf(fi, "Cprogram -> code\n");
-        if(!isError)fprintf(fi2,"Success!\n");
-        else fprintf(fi2,"Fail!\n");
+      
     }
     | Cprogram code{
         fprintf(fi,"Cprogram -> Cprogram code\n");
-        if(!isError)fprintf(fi2,"Success!\n");
-        else fprintf(fi2,"Fail!\n");
     }
     ;
 /* 
- *代码块
- *分为函数块、变量块
+ * 代码，分为函数和声明
  */
 code
     : function{
@@ -112,7 +115,12 @@ code
         fprintf(fi, "code -> decl\n");
     }
     ;
-
+/*
+* 函数 int a(int b){...}
+*      int a(){...}
+*      int a(int b);
+*      int a();       
+*/
 function
     : type ID LB plist RB body{
          fprintf(fi, "function -> type ID LB plist RB body\n");
@@ -127,7 +135,10 @@ function
          fprintf(fi, "function -> type ID LB RB SEMI\n");
     }
     ;
-/*变量块*/
+/*
+* 声明
+* 声明同时赋值
+*/
 decl
     : type ID SEMI{
         fprintf(fi,"decl -> type ID SEMI\n");
@@ -138,7 +149,8 @@ decl
         //$2.name=curID.c_str();
         //$2.type=$1;
         Symbol * symbol=idt.myLookup(curID);
-        if (symbol) {fprintf(fi2,"line:%d ERROR: repeat definition\n",line);isError=1;}
+        if (symbol) {fprintf(fi2,"line:%d ERROR: repeat definition\n",line);isError=1;} //重复定义
+        // 插入符号表
         else {
             idt.myInsert(curID,"","",""); 
             idt.table[curID].type=std::string($1);
@@ -159,7 +171,10 @@ decl
         }
     }
     ;
-/*参数列表*/
+/*
+ * 参数列表
+ * 分为一个参数和多个参数
+ */
 plist
     : pdecl{
         fprintf(fi,"plist -> pdecl\n");
@@ -168,16 +183,20 @@ plist
         fprintf(fi,"plist -> plist COMMA pdecl\n");
     }
     ;
-/*参数声明*/
+/*
+*  声明参数
+*/
 pdecl
     : type ID{
         fprintf(fi,"pdecl -> type ID\n");
 
     }
     ;
-/*变量*/
 
-/*函数实现块*/
+/*
+ * 函数 {}
+ *      {语句块}
+ */
 body
     : LBB RBB{
         fprintf(fi,"body -> LBB RBB\n");
@@ -186,7 +205,9 @@ body
         fprintf(fi,"body -> LBB codelist RBB\n");
     }
     ;
-/*C语句块列表*/
+/*
+* 语句块 
+*/
 codelist
     : codeitem{
         fprintf(fi,"codelist -> codeitem\n");
@@ -198,8 +219,10 @@ codelist
          $$=$3;
     }
     ;
-/*C语句块
- *分为声明语句和操作语句
+/*
+ * 语句 声明语句
+ *      其他语句(while,if)等语法成分
+ *      return语句
  */
 codeitem
     : decl{
@@ -216,7 +239,12 @@ codeitem
         fprintf(fi,"codeitem -> RETURN conexplist SEMI\n");
     }
     ;
-/*操作语句*/
+/*
+* 其他语句 body嵌套
+*          表达式语句(条件、赋值、算术)
+*          选择语句
+*          循环语句
+*/
 stat
     : body{
         fprintf(fi,"stat -> body\n");
@@ -232,7 +260,9 @@ stat
         $$=$1;
     }
     ;
-/*操作语句：多条语句*/
+/*
+* 多条表达式语句
+*/
 expstat
     : SEMI{
         fprintf(fi,"expstat -> SEMI\n");
@@ -242,8 +272,9 @@ expstat
     }
     ;
 /*
- *操作语句：选择
- *分成两个，以消除偏移/规约冲突
+ *选择语句
+ *if
+ *if else
  */
 selstat
     :   IF LB exp RB M stat  ELSE N M stat{
@@ -259,7 +290,11 @@ selstat
         $$=Merge($3.flist,$6);
     }
     ;
-/*操作语句：迭代循环*/
+/*
+ *循环语句
+ *while
+ *for
+ */
 iterstat
     : WHILE LB M exp RB M stat{
         fprintf(fi,"iterstat -> WHILE LB M exp RB M stat\n");
@@ -273,8 +308,9 @@ iterstat
     }
     ;
 /*
- *表达式
- *分为条件表达式、赋值表达式、算数表达式
+ *表达式语句 条件表达式
+ *          赋值表达式
+ *          算数表达式
  */
 exp
     : conexplist{
@@ -293,7 +329,9 @@ exp
 
     }
     ;
-/*赋值表达式*/
+/*
+ *赋值表达式 NM记录ID的名称
+ */
 assexp
     :   ID NM assop exp{
         fprintf(fi,"assexp -> ID assop exp\n");
@@ -316,7 +354,6 @@ NM
     ;
 /*
  *算数表达式
- *  拆分成两个，以消除偏移/规约冲突
  */
 ariexplist
     :   ariexplist ariop ariexp{
@@ -395,6 +432,11 @@ ariexplist
         fprintf(fi,"ariexplist -> LB ariexplist RB\n");
     }
     ;
+/*
+ *  单条算术表达式 值
+ *              (+/-)标识符
+ *               函数调用
+ */
 ariexp
     : value{
         fprintf(fi,"ariexp -> value\n");
@@ -426,10 +468,6 @@ ariexp
     }
     
 
- /*
-  *函数调用
-  *特性与算数表达式比较类似
-  */
     |   ID LB RB {
         fprintf(fi,"ariexp -> ID LB RB\n");
     }
@@ -437,7 +475,9 @@ ariexp
         fprintf(fi,"ariexp -> ID LB vlist RB\n");
     }
     ;
-/*传参*/
+/*
+* 函数参数列表
+*/
 vlist
     :   value{
         fprintf(fi,"vlist -> value\n");
@@ -448,7 +488,6 @@ vlist
     ;
 /*
  *值
- *分为标识符和数字(这里变量只实现数字)
  */
 value   
     :   CONSTANTNUM{
@@ -471,6 +510,9 @@ value
     }
    
     ;
+/*
+*为了方便语义分析，先将ID规约为useID
+*/
 useID
     :  ID{
         fprintf(fi,"useID -> ID\n");
@@ -492,7 +534,6 @@ useID
     ;
 /*
  *条件表达式
- *拆分成两个，以消除偏移/规约冲突
  */
 conexplist
     :   conexp{
@@ -563,7 +604,7 @@ ariop
         strcpy($$,"DIVIDE");
     }
     ;
-/*逻辑运算符*/
+
 logop
     :   DAND{
         fprintf(fi,"logop -> DAND\n");
@@ -575,7 +616,7 @@ logop
     }
     ; 
 
-/*关系运算符*/
+
 relop
     :   EQUAL{
         fprintf(fi,"relop -> EQUAL\n");
@@ -603,13 +644,13 @@ relop
         strcpy($$,">=");
     }
     ;
-/*赋值符号*/    
+  
 assop
     : ASSIGN{
         fprintf(fi,"assop -> ASSIGN\n");
     }
     ;
-/*类型*/
+
 type
     : VOID{
         fprintf(fi,"type -> VOID\n");
@@ -633,6 +674,9 @@ type
     }
     ;
 %%
+/*
+ *   这些注释写在y.tab.cpp中
+ */
 void submain(const char *filename){
     //const char* filename="data.txt";
     FILE *file = fopen(filename, "r");
@@ -684,7 +728,15 @@ int Merge(int l1,int l2){
             temp2=temp2.erase(0,1);
             temp2=temp2.erase(temp2.size()-1,1);
         }
-    while(std::stoi(temp2))temp=std::stoi(temp2);
+    while(std::stoi(temp2)){
+
+      temp=std::stoi(temp2);
+      temp2=qualist[temp].res;
+       if(temp2.size()>=2){
+            temp2=temp2.erase(0,1);
+            temp2=temp2.erase(temp2.size()-1,1);
+        }
+    }
     qualist[temp].res="("+std::to_string(l1)+")";  
     return l2;
 }

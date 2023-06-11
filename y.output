@@ -9,7 +9,7 @@ Terminals unused in grammar
    COLON
 
 
-State 121 conflicts: 1 shift/reduce
+State 127 conflicts: 1 shift/reduce
 
 
 Grammar
@@ -41,7 +41,7 @@ Grammar
    16     | LBB codelist RBB
 
    17 codelist: codeitem
-   18         | codelist codeitem
+   18         | codelist M codeitem
 
    19 codeitem: decl
    20         | stat
@@ -56,79 +56,85 @@ Grammar
    27 expstat: SEMI
    28        | exp SEMI
 
-   29 selstat: IF LB exp RB stat ELSE stat
-   30        | IF LB exp RB stat
+   29 selstat: IF LB exp RB M stat ELSE N M stat
+   30        | IF LB exp RB M stat
 
-   31 iterstat: WHILE LB exp RB stat
+   31 iterstat: WHILE LB M exp RB M stat
    32         | FOR LB decl expstat exp RB stat
 
    33 exp: conexplist
    34    | assexp
    35    | ariexplist
 
-   36 assexp: ID assop exp
+   36 assexp: ID NM assop exp
 
-   37 ariexplist: ariexplist ariop ariexp
-   38           | ariexplist ariop LB ariexplist RB
-   39           | ariexp
-   40           | LB ariexplist RB
+   37 NM: /* empty */
 
-   41 ariexp: value
-   42       | ADD ID
-   43       | MINUS ID
-   44       | ID LB RB
-   45       | ID LB vlist RB
+   38 ariexplist: ariexplist ariop ariexp
+   39           | ariexplist ariop LB ariexplist RB
+   40           | ariexp
+   41           | LB ariexplist RB
 
-   46 vlist: value
-   47      | value COMMA value
+   42 ariexp: value
+   43       | ADD useID
+   44       | MINUS useID
+   45       | useID
+   46       | ID LB RB
+   47       | ID LB vlist RB
 
-   48 value: CONSTANTNUM
-   49      | ADD CONSTANTNUM
-   50      | MINUS CONSTANTNUM
-   51      | ID
+   48 vlist: value
+   49      | value COMMA value
 
-   52 conexplist: conexp
-   53           | conexp logop M conexp
+   50 value: CONSTANTNUM
+   51      | ADD CONSTANTNUM
+   52      | MINUS CONSTANTNUM
 
-   54 conexp: ariexp relop ariexp
+   53 useID: ID
 
-   55 M: /* empty */
+   54 conexplist: conexp
+   55           | conexp logop M conexp
 
-   56 ariop: ADD
-   57      | MINUS
-   58      | TIMES
-   59      | DIVIDE
+   56 conexp: ariexp relop ariexp
 
-   60 logop: DAND
-   61      | DOR
+   57 M: /* empty */
 
-   62 relop: EQUAL
-   63      | LESS
-   64      | GREATER
-   65      | NOTEQUAL
-   66      | LESSEQUAL
-   67      | GREATEREQUAL
+   58 N: /* empty */
 
-   68 assop: ASSIGN
+   59 ariop: ADD
+   60      | MINUS
+   61      | TIMES
+   62      | DIVIDE
 
-   69 type: VOID
-   70     | INT
-   71     | FLOAT
-   72     | DOUBLE
+   63 logop: DAND
+   64      | DOR
+
+   65 relop: EQUAL
+   66      | LESS
+   67      | GREATER
+   68      | NOTEQUAL
+   69      | LESSEQUAL
+   70      | GREATEREQUAL
+
+   71 assop: ASSIGN
+
+   72 type: VOID
+   73     | INT
+   74     | FLOAT
+   75     | DOUBLE
 
 
 Terminals, with rules where they appear
 
 $end (0) 0
 error (256)
-ID (258) 6 7 8 9 10 14 36 42 43 44 45 51
-INT (259) 70
+ID (258) 6 7 8 9 10 14 36 46 47 53
+INT (259) 73
 BREAK (260)
 CASE (261)
-DOUBLE (262) 72
+DOUBLE (262) 75
 CONST (263)
-FLOAT (264) 71
-VOID (265) 69
+FLOAT (264) 74
+VOID (265) 72
 RETURN (266) 21 22
 FOR (267) 32
 WHILE (268) 31
@@ -136,28 +142,28 @@ ELSE (269) 29
 IF (270) 29 30
 SWITCH (271)
 DEFAULT (272)
-LB (273) 6 7 8 9 29 30 31 32 38 40 44 45
-RB (274) 6 7 8 9 29 30 31 32 38 40 44 45
+LB (273) 6 7 8 9 29 30 31 32 39 41 46 47
+RB (274) 6 7 8 9 29 30 31 32 39 41 46 47
 LBB (275) 15 16
 RBB (276) 15 16
 DOT (277)
 SEMI (278) 8 9 10 11 21 22 27 28
 COLON (279)
-COMMA (280) 13 47
-CONSTANTNUM (281) 48 49 50
-ASSIGN (282) 68
-DOR (283) 61
-DAND (284) 60
-EQUAL (285) 62
-NOTEQUAL (286) 65
-LESSEQUAL (287) 66
-GREATEREQUAL (288) 67
-LESS (289) 63
-GREATER (290) 64
-MINUS (291) 43 50 57
-ADD (292) 42 49 56
-DIVIDE (293) 59
-TIMES (294) 58
+COMMA (280) 13 49
+CONSTANTNUM (281) 50 51 52
+ASSIGN (282) 71
+DOR (283) 64
+DAND (284) 63
+EQUAL (285) 65
+NOTEQUAL (286) 68
+LESSEQUAL (287) 69
+GREATEREQUAL (288) 70
+LESS (289) 66
+GREATER (290) 67
+MINUS (291) 44 52 60
+ADD (292) 43 51 59
+DIVIDE (293) 62
+TIMES (294) 61
 
 
 Nonterminals, with rules where they appear
@@ -196,30 +202,36 @@ exp (55)
     on left: 33 34 35, on right: 28 29 30 31 32 36
 assexp (56)
     on left: 36, on right: 11 34
-ariexplist (57)
-    on left: 37 38 39 40, on right: 21 35 37 38 40
-ariexp (58)
-    on left: 41 42 43 44 45, on right: 37 39 54
-vlist (59)
-    on left: 46 47, on right: 45
-value (60)
-    on left: 48 49 50 51, on right: 41 46 47
-conexplist (61)
-    on left: 52 53, on right: 22 33
-conexp (62)
-    on left: 54, on right: 52 53
-M (63)
-    on left: 55, on right: 53
-ariop (64)
-    on left: 56 57 58 59, on right: 37 38
-logop (65)
-    on left: 60 61, on right: 53
-relop (66)
-    on left: 62 63 64 65 66 67, on right: 54
-assop (67)
-    on left: 68, on right: 36
-type (68)
-    on left: 69 70 71 72, on right: 6 7 8 9 10 11 14
+NM (57)
+    on left: 37, on right: 36
+ariexplist (58)
+    on left: 38 39 40 41, on right: 21 35 38 39 41
+ariexp (59)
+    on left: 42 43 44 45 46 47, on right: 38 40 56
+vlist (60)
+    on left: 48 49, on right: 47
+value (61)
+    on left: 50 51 52, on right: 42 48 49
+useID (62)
+    on left: 53, on right: 43 44 45
+conexplist (63)
+    on left: 54 55, on right: 22 33
+conexp (64)
+    on left: 56, on right: 54 55
+M (65)
+    on left: 57, on right: 18 29 30 31 55
+N (66)
+    on left: 58, on right: 29
+ariop (67)
+    on left: 59 60 61 62, on right: 38 39
+logop (68)
+    on left: 63 64, on right: 55
+relop (69)
+    on left: 65 66 67 68 69 70, on right: 56
+assop (70)
+    on left: 71, on right: 36
+type (71)
+    on left: 72 73 74 75, on right: 6 7 8 9 10 11 14
 
 
 state 0
@@ -241,30 +253,30 @@ state 0
 
 state 1
 
-   70 type: INT .
+   73 type: INT .
 
-    $default  reduce using rule 70 (type)
+    $default  reduce using rule 73 (type)
 
 
 state 2
 
-   72 type: DOUBLE .
+   75 type: DOUBLE .
 
-    $default  reduce using rule 72 (type)
+    $default  reduce using rule 75 (type)
 
 
 state 3
 
-   71 type: FLOAT .
+   74 type: FLOAT .
 
-    $default  reduce using rule 71 (type)
+    $default  reduce using rule 74 (type)
 
 
 state 4
 
-   69 type: VOID .
+   72 type: VOID .
 
-    $default  reduce using rule 69 (type)
+    $default  reduce using rule 72 (type)
 
 
 state 5
@@ -348,20 +360,21 @@ state 13
     8         | type ID . LB plist RB SEMI
     9         | type ID . LB RB SEMI
    10 decl: type ID . SEMI
-   36 assexp: ID . assop exp
+   36 assexp: ID . NM assop exp
 
-    LB      shift, and go to state 15
-    SEMI    shift, and go to state 16
-    ASSIGN  shift, and go to state 17
+    LB    shift, and go to state 15
+    SEMI  shift, and go to state 16
 
-    assop  go to state 18
+    $default  reduce using rule 37 (NM)
+
+    NM  go to state 17
 
 
 state 14
 
    11 decl: type assexp . SEMI
 
-    SEMI  shift, and go to state 19
+    SEMI  shift, and go to state 18
 
 
 state 15
@@ -375,11 +388,11 @@ state 15
     DOUBLE  shift, and go to state 2
     FLOAT   shift, and go to state 3
     VOID    shift, and go to state 4
-    RB      shift, and go to state 20
+    RB      shift, and go to state 19
 
-    plist  go to state 21
-    pdecl  go to state 22
-    type   go to state 23
+    plist  go to state 20
+    pdecl  go to state 21
+    type   go to state 22
 
 
 state 16
@@ -391,267 +404,149 @@ state 16
 
 state 17
 
-   68 assop: ASSIGN .
+   36 assexp: ID NM . assop exp
 
-    $default  reduce using rule 68 (assop)
+    ASSIGN  shift, and go to state 23
+
+    assop  go to state 24
 
 
 state 18
-
-   36 assexp: ID assop . exp
-
-    ID           shift, and go to state 24
-    LB           shift, and go to state 25
-    CONSTANTNUM  shift, and go to state 26
-    MINUS        shift, and go to state 27
-    ADD          shift, and go to state 28
-
-    exp         go to state 29
-    assexp      go to state 30
-    ariexplist  go to state 31
-    ariexp      go to state 32
-    value       go to state 33
-    conexplist  go to state 34
-    conexp      go to state 35
-
-
-state 19
 
    11 decl: type assexp SEMI .
 
     $default  reduce using rule 11 (decl)
 
 
-state 20
+state 19
 
     7 function: type ID LB RB . body
     9         | type ID LB RB . SEMI
 
-    LBB   shift, and go to state 36
-    SEMI  shift, and go to state 37
+    LBB   shift, and go to state 25
+    SEMI  shift, and go to state 26
 
-    body  go to state 38
+    body  go to state 27
 
 
-state 21
+state 20
 
     6 function: type ID LB plist . RB body
     8         | type ID LB plist . RB SEMI
    13 plist: plist . COMMA pdecl
 
-    RB     shift, and go to state 39
-    COMMA  shift, and go to state 40
+    RB     shift, and go to state 28
+    COMMA  shift, and go to state 29
 
 
-state 22
+state 21
 
    12 plist: pdecl .
 
     $default  reduce using rule 12 (plist)
 
 
-state 23
+state 22
 
    14 pdecl: type . ID
 
-    ID  shift, and go to state 41
+    ID  shift, and go to state 30
+
+
+state 23
+
+   71 assop: ASSIGN .
+
+    $default  reduce using rule 71 (assop)
 
 
 state 24
 
-   36 assexp: ID . assop exp
-   44 ariexp: ID . LB RB
-   45       | ID . LB vlist RB
-   51 value: ID .
+   36 assexp: ID NM assop . exp
 
-    LB      shift, and go to state 42
-    ASSIGN  shift, and go to state 17
+    ID           shift, and go to state 31
+    LB           shift, and go to state 32
+    CONSTANTNUM  shift, and go to state 33
+    MINUS        shift, and go to state 34
+    ADD          shift, and go to state 35
 
-    $default  reduce using rule 51 (value)
-
-    assop  go to state 18
+    exp         go to state 36
+    assexp      go to state 37
+    ariexplist  go to state 38
+    ariexp      go to state 39
+    value       go to state 40
+    useID       go to state 41
+    conexplist  go to state 42
+    conexp      go to state 43
 
 
 state 25
 
-   40 ariexplist: LB . ariexplist RB
-
-    ID           shift, and go to state 43
-    LB           shift, and go to state 25
-    CONSTANTNUM  shift, and go to state 26
-    MINUS        shift, and go to state 27
-    ADD          shift, and go to state 28
-
-    ariexplist  go to state 44
-    ariexp      go to state 45
-    value       go to state 33
-
-
-state 26
-
-   48 value: CONSTANTNUM .
-
-    $default  reduce using rule 48 (value)
-
-
-state 27
-
-   43 ariexp: MINUS . ID
-   50 value: MINUS . CONSTANTNUM
-
-    ID           shift, and go to state 46
-    CONSTANTNUM  shift, and go to state 47
-
-
-state 28
-
-   42 ariexp: ADD . ID
-   49 value: ADD . CONSTANTNUM
-
-    ID           shift, and go to state 48
-    CONSTANTNUM  shift, and go to state 49
-
-
-state 29
-
-   36 assexp: ID assop exp .
-
-    $default  reduce using rule 36 (assexp)
-
-
-state 30
-
-   34 exp: assexp .
-
-    $default  reduce using rule 34 (exp)
-
-
-state 31
-
-   35 exp: ariexplist .
-   37 ariexplist: ariexplist . ariop ariexp
-   38           | ariexplist . ariop LB ariexplist RB
-
-    MINUS   shift, and go to state 50
-    ADD     shift, and go to state 51
-    DIVIDE  shift, and go to state 52
-    TIMES   shift, and go to state 53
-
-    $default  reduce using rule 35 (exp)
-
-    ariop  go to state 54
-
-
-state 32
-
-   39 ariexplist: ariexp .
-   54 conexp: ariexp . relop ariexp
-
-    EQUAL         shift, and go to state 55
-    NOTEQUAL      shift, and go to state 56
-    LESSEQUAL     shift, and go to state 57
-    GREATEREQUAL  shift, and go to state 58
-    LESS          shift, and go to state 59
-    GREATER       shift, and go to state 60
-
-    $default  reduce using rule 39 (ariexplist)
-
-    relop  go to state 61
-
-
-state 33
-
-   41 ariexp: value .
-
-    $default  reduce using rule 41 (ariexp)
-
-
-state 34
-
-   33 exp: conexplist .
-
-    $default  reduce using rule 33 (exp)
-
-
-state 35
-
-   52 conexplist: conexp .
-   53           | conexp . logop M conexp
-
-    DOR   shift, and go to state 62
-    DAND  shift, and go to state 63
-
-    $default  reduce using rule 52 (conexplist)
-
-    logop  go to state 64
-
-
-state 36
-
    15 body: LBB . RBB
    16     | LBB . codelist RBB
 
-    ID           shift, and go to state 24
+    ID           shift, and go to state 31
     INT          shift, and go to state 1
     DOUBLE       shift, and go to state 2
     FLOAT        shift, and go to state 3
     VOID         shift, and go to state 4
-    RETURN       shift, and go to state 65
-    FOR          shift, and go to state 66
-    WHILE        shift, and go to state 67
-    IF           shift, and go to state 68
-    LB           shift, and go to state 25
-    LBB          shift, and go to state 36
-    RBB          shift, and go to state 69
-    SEMI         shift, and go to state 70
-    CONSTANTNUM  shift, and go to state 26
-    MINUS        shift, and go to state 27
-    ADD          shift, and go to state 28
+    RETURN       shift, and go to state 44
+    FOR          shift, and go to state 45
+    WHILE        shift, and go to state 46
+    IF           shift, and go to state 47
+    LB           shift, and go to state 32
+    LBB          shift, and go to state 25
+    RBB          shift, and go to state 48
+    SEMI         shift, and go to state 49
+    CONSTANTNUM  shift, and go to state 33
+    MINUS        shift, and go to state 34
+    ADD          shift, and go to state 35
 
-    decl        go to state 71
-    body        go to state 72
-    codelist    go to state 73
-    codeitem    go to state 74
-    stat        go to state 75
-    expstat     go to state 76
-    selstat     go to state 77
-    iterstat    go to state 78
-    exp         go to state 79
-    assexp      go to state 30
-    ariexplist  go to state 31
-    ariexp      go to state 32
-    value       go to state 33
-    conexplist  go to state 34
-    conexp      go to state 35
-    type        go to state 80
+    decl        go to state 50
+    body        go to state 51
+    codelist    go to state 52
+    codeitem    go to state 53
+    stat        go to state 54
+    expstat     go to state 55
+    selstat     go to state 56
+    iterstat    go to state 57
+    exp         go to state 58
+    assexp      go to state 37
+    ariexplist  go to state 38
+    ariexp      go to state 39
+    value       go to state 40
+    useID       go to state 41
+    conexplist  go to state 42
+    conexp      go to state 43
+    type        go to state 59
 
 
-state 37
+state 26
 
     9 function: type ID LB RB SEMI .
 
     $default  reduce using rule 9 (function)
 
 
-state 38
+state 27
 
     7 function: type ID LB RB body .
 
     $default  reduce using rule 7 (function)
 
 
-state 39
+state 28
 
     6 function: type ID LB plist RB . body
     8         | type ID LB plist RB . SEMI
 
-    LBB   shift, and go to state 36
-    SEMI  shift, and go to state 81
+    LBB   shift, and go to state 25
+    SEMI  shift, and go to state 60
 
-    body  go to state 82
+    body  go to state 61
 
 
-state 40
+state 29
 
    13 plist: plist COMMA . pdecl
 
@@ -660,512 +555,540 @@ state 40
     FLOAT   shift, and go to state 3
     VOID    shift, and go to state 4
 
-    pdecl  go to state 83
-    type   go to state 23
+    pdecl  go to state 62
+    type   go to state 22
 
 
-state 41
+state 30
 
    14 pdecl: type ID .
 
     $default  reduce using rule 14 (pdecl)
 
 
-state 42
+state 31
 
-   44 ariexp: ID LB . RB
-   45       | ID LB . vlist RB
+   36 assexp: ID . NM assop exp
+   46 ariexp: ID . LB RB
+   47       | ID . LB vlist RB
+   53 useID: ID .
 
-    ID           shift, and go to state 84
-    RB           shift, and go to state 85
-    CONSTANTNUM  shift, and go to state 26
-    MINUS        shift, and go to state 86
-    ADD          shift, and go to state 87
+    LB  shift, and go to state 63
 
-    vlist  go to state 88
-    value  go to state 89
+    ASSIGN    reduce using rule 37 (NM)
+    $default  reduce using rule 53 (useID)
 
-
-state 43
-
-   44 ariexp: ID . LB RB
-   45       | ID . LB vlist RB
-   51 value: ID .
-
-    LB  shift, and go to state 42
-
-    $default  reduce using rule 51 (value)
+    NM  go to state 17
 
 
-state 44
+state 32
 
-   37 ariexplist: ariexplist . ariop ariexp
-   38           | ariexplist . ariop LB ariexplist RB
-   40           | LB ariexplist . RB
+   41 ariexplist: LB . ariexplist RB
 
-    RB      shift, and go to state 90
-    MINUS   shift, and go to state 50
-    ADD     shift, and go to state 51
-    DIVIDE  shift, and go to state 52
-    TIMES   shift, and go to state 53
+    ID           shift, and go to state 64
+    LB           shift, and go to state 32
+    CONSTANTNUM  shift, and go to state 33
+    MINUS        shift, and go to state 34
+    ADD          shift, and go to state 35
 
-    ariop  go to state 54
-
-
-state 45
-
-   39 ariexplist: ariexp .
-
-    $default  reduce using rule 39 (ariexplist)
+    ariexplist  go to state 65
+    ariexp      go to state 66
+    value       go to state 40
+    useID       go to state 41
 
 
-state 46
+state 33
 
-   43 ariexp: MINUS ID .
-
-    $default  reduce using rule 43 (ariexp)
-
-
-state 47
-
-   50 value: MINUS CONSTANTNUM .
+   50 value: CONSTANTNUM .
 
     $default  reduce using rule 50 (value)
 
 
-state 48
+state 34
 
-   42 ariexp: ADD ID .
+   44 ariexp: MINUS . useID
+   52 value: MINUS . CONSTANTNUM
+
+    ID           shift, and go to state 67
+    CONSTANTNUM  shift, and go to state 68
+
+    useID  go to state 69
+
+
+state 35
+
+   43 ariexp: ADD . useID
+   51 value: ADD . CONSTANTNUM
+
+    ID           shift, and go to state 67
+    CONSTANTNUM  shift, and go to state 70
+
+    useID  go to state 71
+
+
+state 36
+
+   36 assexp: ID NM assop exp .
+
+    $default  reduce using rule 36 (assexp)
+
+
+state 37
+
+   34 exp: assexp .
+
+    $default  reduce using rule 34 (exp)
+
+
+state 38
+
+   35 exp: ariexplist .
+   38 ariexplist: ariexplist . ariop ariexp
+   39           | ariexplist . ariop LB ariexplist RB
+
+    MINUS   shift, and go to state 72
+    ADD     shift, and go to state 73
+    DIVIDE  shift, and go to state 74
+    TIMES   shift, and go to state 75
+
+    $default  reduce using rule 35 (exp)
+
+    ariop  go to state 76
+
+
+state 39
+
+   40 ariexplist: ariexp .
+   56 conexp: ariexp . relop ariexp
+
+    EQUAL         shift, and go to state 77
+    NOTEQUAL      shift, and go to state 78
+    LESSEQUAL     shift, and go to state 79
+    GREATEREQUAL  shift, and go to state 80
+    LESS          shift, and go to state 81
+    GREATER       shift, and go to state 82
+
+    $default  reduce using rule 40 (ariexplist)
+
+    relop  go to state 83
+
+
+state 40
+
+   42 ariexp: value .
 
     $default  reduce using rule 42 (ariexp)
 
 
-state 49
+state 41
 
-   49 value: ADD CONSTANTNUM .
+   45 ariexp: useID .
 
-    $default  reduce using rule 49 (value)
+    $default  reduce using rule 45 (ariexp)
 
 
-state 50
+state 42
 
-   57 ariop: MINUS .
+   33 exp: conexplist .
 
-    $default  reduce using rule 57 (ariop)
+    $default  reduce using rule 33 (exp)
 
 
-state 51
+state 43
 
-   56 ariop: ADD .
+   54 conexplist: conexp .
+   55           | conexp . logop M conexp
 
-    $default  reduce using rule 56 (ariop)
+    DOR   shift, and go to state 84
+    DAND  shift, and go to state 85
 
+    $default  reduce using rule 54 (conexplist)
 
-state 52
+    logop  go to state 86
 
-   59 ariop: DIVIDE .
 
-    $default  reduce using rule 59 (ariop)
-
-
-state 53
-
-   58 ariop: TIMES .
-
-    $default  reduce using rule 58 (ariop)
-
-
-state 54
-
-   37 ariexplist: ariexplist ariop . ariexp
-   38           | ariexplist ariop . LB ariexplist RB
-
-    ID           shift, and go to state 43
-    LB           shift, and go to state 91
-    CONSTANTNUM  shift, and go to state 26
-    MINUS        shift, and go to state 27
-    ADD          shift, and go to state 28
-
-    ariexp  go to state 92
-    value   go to state 33
-
-
-state 55
-
-   62 relop: EQUAL .
-
-    $default  reduce using rule 62 (relop)
-
-
-state 56
-
-   65 relop: NOTEQUAL .
-
-    $default  reduce using rule 65 (relop)
-
-
-state 57
-
-   66 relop: LESSEQUAL .
-
-    $default  reduce using rule 66 (relop)
-
-
-state 58
-
-   67 relop: GREATEREQUAL .
-
-    $default  reduce using rule 67 (relop)
-
-
-state 59
-
-   63 relop: LESS .
-
-    $default  reduce using rule 63 (relop)
-
-
-state 60
-
-   64 relop: GREATER .
-
-    $default  reduce using rule 64 (relop)
-
-
-state 61
-
-   54 conexp: ariexp relop . ariexp
-
-    ID           shift, and go to state 43
-    CONSTANTNUM  shift, and go to state 26
-    MINUS        shift, and go to state 27
-    ADD          shift, and go to state 28
-
-    ariexp  go to state 93
-    value   go to state 33
-
-
-state 62
-
-   61 logop: DOR .
-
-    $default  reduce using rule 61 (logop)
-
-
-state 63
-
-   60 logop: DAND .
-
-    $default  reduce using rule 60 (logop)
-
-
-state 64
-
-   53 conexplist: conexp logop . M conexp
-
-    $default  reduce using rule 55 (M)
-
-    M  go to state 94
-
-
-state 65
+state 44
 
    21 codeitem: RETURN . ariexplist SEMI
    22         | RETURN . conexplist SEMI
 
-    ID           shift, and go to state 43
-    LB           shift, and go to state 25
-    CONSTANTNUM  shift, and go to state 26
-    MINUS        shift, and go to state 27
-    ADD          shift, and go to state 28
+    ID           shift, and go to state 64
+    LB           shift, and go to state 32
+    CONSTANTNUM  shift, and go to state 33
+    MINUS        shift, and go to state 34
+    ADD          shift, and go to state 35
 
-    ariexplist  go to state 95
-    ariexp      go to state 32
-    value       go to state 33
-    conexplist  go to state 96
-    conexp      go to state 35
+    ariexplist  go to state 87
+    ariexp      go to state 39
+    value       go to state 40
+    useID       go to state 41
+    conexplist  go to state 88
+    conexp      go to state 43
 
 
-state 66
+state 45
 
    32 iterstat: FOR . LB decl expstat exp RB stat
 
-    LB  shift, and go to state 97
+    LB  shift, and go to state 89
 
 
-state 67
+state 46
 
-   31 iterstat: WHILE . LB exp RB stat
+   31 iterstat: WHILE . LB M exp RB M stat
 
-    LB  shift, and go to state 98
-
-
-state 68
-
-   29 selstat: IF . LB exp RB stat ELSE stat
-   30        | IF . LB exp RB stat
-
-    LB  shift, and go to state 99
+    LB  shift, and go to state 90
 
 
-state 69
+state 47
+
+   29 selstat: IF . LB exp RB M stat ELSE N M stat
+   30        | IF . LB exp RB M stat
+
+    LB  shift, and go to state 91
+
+
+state 48
 
    15 body: LBB RBB .
 
     $default  reduce using rule 15 (body)
 
 
-state 70
+state 49
 
    27 expstat: SEMI .
 
     $default  reduce using rule 27 (expstat)
 
 
-state 71
+state 50
 
    19 codeitem: decl .
 
     $default  reduce using rule 19 (codeitem)
 
 
-state 72
+state 51
 
    23 stat: body .
 
     $default  reduce using rule 23 (stat)
 
 
-state 73
+state 52
 
    16 body: LBB codelist . RBB
-   18 codelist: codelist . codeitem
+   18 codelist: codelist . M codeitem
 
-    ID           shift, and go to state 24
-    INT          shift, and go to state 1
-    DOUBLE       shift, and go to state 2
-    FLOAT        shift, and go to state 3
-    VOID         shift, and go to state 4
-    RETURN       shift, and go to state 65
-    FOR          shift, and go to state 66
-    WHILE        shift, and go to state 67
-    IF           shift, and go to state 68
-    LB           shift, and go to state 25
-    LBB          shift, and go to state 36
-    RBB          shift, and go to state 100
-    SEMI         shift, and go to state 70
-    CONSTANTNUM  shift, and go to state 26
-    MINUS        shift, and go to state 27
-    ADD          shift, and go to state 28
+    RBB  shift, and go to state 92
 
-    decl        go to state 71
-    body        go to state 72
-    codeitem    go to state 101
-    stat        go to state 75
-    expstat     go to state 76
-    selstat     go to state 77
-    iterstat    go to state 78
-    exp         go to state 79
-    assexp      go to state 30
-    ariexplist  go to state 31
-    ariexp      go to state 32
-    value       go to state 33
-    conexplist  go to state 34
-    conexp      go to state 35
-    type        go to state 80
+    $default  reduce using rule 57 (M)
+
+    M  go to state 93
 
 
-state 74
+state 53
 
    17 codelist: codeitem .
 
     $default  reduce using rule 17 (codelist)
 
 
-state 75
+state 54
 
    20 codeitem: stat .
 
     $default  reduce using rule 20 (codeitem)
 
 
-state 76
+state 55
 
    24 stat: expstat .
 
     $default  reduce using rule 24 (stat)
 
 
-state 77
+state 56
 
    25 stat: selstat .
 
     $default  reduce using rule 25 (stat)
 
 
-state 78
+state 57
 
    26 stat: iterstat .
 
     $default  reduce using rule 26 (stat)
 
 
-state 79
+state 58
 
    28 expstat: exp . SEMI
 
-    SEMI  shift, and go to state 102
+    SEMI  shift, and go to state 94
 
 
-state 80
+state 59
 
    10 decl: type . ID SEMI
    11     | type . assexp SEMI
 
-    ID  shift, and go to state 103
+    ID  shift, and go to state 95
 
     assexp  go to state 14
 
 
-state 81
+state 60
 
     8 function: type ID LB plist RB SEMI .
 
     $default  reduce using rule 8 (function)
 
 
-state 82
+state 61
 
     6 function: type ID LB plist RB body .
 
     $default  reduce using rule 6 (function)
 
 
-state 83
+state 62
 
    13 plist: plist COMMA pdecl .
 
     $default  reduce using rule 13 (plist)
 
 
-state 84
+state 63
 
-   51 value: ID .
+   46 ariexp: ID LB . RB
+   47       | ID LB . vlist RB
 
-    $default  reduce using rule 51 (value)
+    RB           shift, and go to state 96
+    CONSTANTNUM  shift, and go to state 33
+    MINUS        shift, and go to state 97
+    ADD          shift, and go to state 98
 
-
-state 85
-
-   44 ariexp: ID LB RB .
-
-    $default  reduce using rule 44 (ariexp)
-
-
-state 86
-
-   50 value: MINUS . CONSTANTNUM
-
-    CONSTANTNUM  shift, and go to state 47
+    vlist  go to state 99
+    value  go to state 100
 
 
-state 87
+state 64
 
-   49 value: ADD . CONSTANTNUM
+   46 ariexp: ID . LB RB
+   47       | ID . LB vlist RB
+   53 useID: ID .
 
-    CONSTANTNUM  shift, and go to state 49
+    LB  shift, and go to state 63
 
-
-state 88
-
-   45 ariexp: ID LB vlist . RB
-
-    RB  shift, and go to state 104
+    $default  reduce using rule 53 (useID)
 
 
-state 89
+state 65
 
-   46 vlist: value .
-   47      | value . COMMA value
+   38 ariexplist: ariexplist . ariop ariexp
+   39           | ariexplist . ariop LB ariexplist RB
+   41           | LB ariexplist . RB
 
-    COMMA  shift, and go to state 105
+    RB      shift, and go to state 101
+    MINUS   shift, and go to state 72
+    ADD     shift, and go to state 73
+    DIVIDE  shift, and go to state 74
+    TIMES   shift, and go to state 75
 
-    $default  reduce using rule 46 (vlist)
+    ariop  go to state 76
 
 
-state 90
+state 66
 
-   40 ariexplist: LB ariexplist RB .
+   40 ariexplist: ariexp .
 
     $default  reduce using rule 40 (ariexplist)
 
 
-state 91
+state 67
 
-   38 ariexplist: ariexplist ariop LB . ariexplist RB
+   53 useID: ID .
 
-    ID           shift, and go to state 43
-    LB           shift, and go to state 25
-    CONSTANTNUM  shift, and go to state 26
-    MINUS        shift, and go to state 27
-    ADD          shift, and go to state 28
-
-    ariexplist  go to state 106
-    ariexp      go to state 45
-    value       go to state 33
+    $default  reduce using rule 53 (useID)
 
 
-state 92
+state 68
 
-   37 ariexplist: ariexplist ariop ariexp .
+   52 value: MINUS CONSTANTNUM .
 
-    $default  reduce using rule 37 (ariexplist)
-
-
-state 93
-
-   54 conexp: ariexp relop ariexp .
-
-    $default  reduce using rule 54 (conexp)
+    $default  reduce using rule 52 (value)
 
 
-state 94
+state 69
 
-   53 conexplist: conexp logop M . conexp
+   44 ariexp: MINUS useID .
 
-    ID           shift, and go to state 43
-    CONSTANTNUM  shift, and go to state 26
-    MINUS        shift, and go to state 27
-    ADD          shift, and go to state 28
-
-    ariexp  go to state 107
-    value   go to state 33
-    conexp  go to state 108
+    $default  reduce using rule 44 (ariexp)
 
 
-state 95
+state 70
+
+   51 value: ADD CONSTANTNUM .
+
+    $default  reduce using rule 51 (value)
+
+
+state 71
+
+   43 ariexp: ADD useID .
+
+    $default  reduce using rule 43 (ariexp)
+
+
+state 72
+
+   60 ariop: MINUS .
+
+    $default  reduce using rule 60 (ariop)
+
+
+state 73
+
+   59 ariop: ADD .
+
+    $default  reduce using rule 59 (ariop)
+
+
+state 74
+
+   62 ariop: DIVIDE .
+
+    $default  reduce using rule 62 (ariop)
+
+
+state 75
+
+   61 ariop: TIMES .
+
+    $default  reduce using rule 61 (ariop)
+
+
+state 76
+
+   38 ariexplist: ariexplist ariop . ariexp
+   39           | ariexplist ariop . LB ariexplist RB
+
+    ID           shift, and go to state 64
+    LB           shift, and go to state 102
+    CONSTANTNUM  shift, and go to state 33
+    MINUS        shift, and go to state 34
+    ADD          shift, and go to state 35
+
+    ariexp  go to state 103
+    value   go to state 40
+    useID   go to state 41
+
+
+state 77
+
+   65 relop: EQUAL .
+
+    $default  reduce using rule 65 (relop)
+
+
+state 78
+
+   68 relop: NOTEQUAL .
+
+    $default  reduce using rule 68 (relop)
+
+
+state 79
+
+   69 relop: LESSEQUAL .
+
+    $default  reduce using rule 69 (relop)
+
+
+state 80
+
+   70 relop: GREATEREQUAL .
+
+    $default  reduce using rule 70 (relop)
+
+
+state 81
+
+   66 relop: LESS .
+
+    $default  reduce using rule 66 (relop)
+
+
+state 82
+
+   67 relop: GREATER .
+
+    $default  reduce using rule 67 (relop)
+
+
+state 83
+
+   56 conexp: ariexp relop . ariexp
+
+    ID           shift, and go to state 64
+    CONSTANTNUM  shift, and go to state 33
+    MINUS        shift, and go to state 34
+    ADD          shift, and go to state 35
+
+    ariexp  go to state 104
+    value   go to state 40
+    useID   go to state 41
+
+
+state 84
+
+   64 logop: DOR .
+
+    $default  reduce using rule 64 (logop)
+
+
+state 85
+
+   63 logop: DAND .
+
+    $default  reduce using rule 63 (logop)
+
+
+state 86
+
+   55 conexplist: conexp logop . M conexp
+
+    $default  reduce using rule 57 (M)
+
+    M  go to state 105
+
+
+state 87
 
    21 codeitem: RETURN ariexplist . SEMI
-   37 ariexplist: ariexplist . ariop ariexp
-   38           | ariexplist . ariop LB ariexplist RB
+   38 ariexplist: ariexplist . ariop ariexp
+   39           | ariexplist . ariop LB ariexplist RB
 
-    SEMI    shift, and go to state 109
-    MINUS   shift, and go to state 50
-    ADD     shift, and go to state 51
-    DIVIDE  shift, and go to state 52
-    TIMES   shift, and go to state 53
+    SEMI    shift, and go to state 106
+    MINUS   shift, and go to state 72
+    ADD     shift, and go to state 73
+    DIVIDE  shift, and go to state 74
+    TIMES   shift, and go to state 75
 
-    ariop  go to state 54
+    ariop  go to state 76
 
 
-state 96
+state 88
 
    22 codeitem: RETURN conexplist . SEMI
 
-    SEMI  shift, and go to state 110
+    SEMI  shift, and go to state 107
 
 
-state 97
+state 89
 
    32 iterstat: FOR LB . decl expstat exp RB stat
 
@@ -1174,370 +1097,552 @@ state 97
     FLOAT   shift, and go to state 3
     VOID    shift, and go to state 4
 
-    decl  go to state 111
-    type  go to state 80
+    decl  go to state 108
+    type  go to state 59
 
 
-state 98
+state 90
 
-   31 iterstat: WHILE LB . exp RB stat
+   31 iterstat: WHILE LB . M exp RB M stat
 
-    ID           shift, and go to state 24
-    LB           shift, and go to state 25
-    CONSTANTNUM  shift, and go to state 26
-    MINUS        shift, and go to state 27
-    ADD          shift, and go to state 28
+    $default  reduce using rule 57 (M)
 
-    exp         go to state 112
-    assexp      go to state 30
-    ariexplist  go to state 31
-    ariexp      go to state 32
-    value       go to state 33
-    conexplist  go to state 34
-    conexp      go to state 35
+    M  go to state 109
 
 
-state 99
+state 91
 
-   29 selstat: IF LB . exp RB stat ELSE stat
-   30        | IF LB . exp RB stat
+   29 selstat: IF LB . exp RB M stat ELSE N M stat
+   30        | IF LB . exp RB M stat
 
-    ID           shift, and go to state 24
-    LB           shift, and go to state 25
-    CONSTANTNUM  shift, and go to state 26
-    MINUS        shift, and go to state 27
-    ADD          shift, and go to state 28
+    ID           shift, and go to state 31
+    LB           shift, and go to state 32
+    CONSTANTNUM  shift, and go to state 33
+    MINUS        shift, and go to state 34
+    ADD          shift, and go to state 35
 
-    exp         go to state 113
-    assexp      go to state 30
-    ariexplist  go to state 31
-    ariexp      go to state 32
-    value       go to state 33
-    conexplist  go to state 34
-    conexp      go to state 35
+    exp         go to state 110
+    assexp      go to state 37
+    ariexplist  go to state 38
+    ariexp      go to state 39
+    value       go to state 40
+    useID       go to state 41
+    conexplist  go to state 42
+    conexp      go to state 43
 
 
-state 100
+state 92
 
    16 body: LBB codelist RBB .
 
     $default  reduce using rule 16 (body)
 
 
-state 101
+state 93
 
-   18 codelist: codelist codeitem .
+   18 codelist: codelist M . codeitem
 
-    $default  reduce using rule 18 (codelist)
+    ID           shift, and go to state 31
+    INT          shift, and go to state 1
+    DOUBLE       shift, and go to state 2
+    FLOAT        shift, and go to state 3
+    VOID         shift, and go to state 4
+    RETURN       shift, and go to state 44
+    FOR          shift, and go to state 45
+    WHILE        shift, and go to state 46
+    IF           shift, and go to state 47
+    LB           shift, and go to state 32
+    LBB          shift, and go to state 25
+    SEMI         shift, and go to state 49
+    CONSTANTNUM  shift, and go to state 33
+    MINUS        shift, and go to state 34
+    ADD          shift, and go to state 35
+
+    decl        go to state 50
+    body        go to state 51
+    codeitem    go to state 111
+    stat        go to state 54
+    expstat     go to state 55
+    selstat     go to state 56
+    iterstat    go to state 57
+    exp         go to state 58
+    assexp      go to state 37
+    ariexplist  go to state 38
+    ariexp      go to state 39
+    value       go to state 40
+    useID       go to state 41
+    conexplist  go to state 42
+    conexp      go to state 43
+    type        go to state 59
 
 
-state 102
+state 94
 
    28 expstat: exp SEMI .
 
     $default  reduce using rule 28 (expstat)
 
 
-state 103
+state 95
 
    10 decl: type ID . SEMI
-   36 assexp: ID . assop exp
+   36 assexp: ID . NM assop exp
 
-    SEMI    shift, and go to state 16
-    ASSIGN  shift, and go to state 17
+    SEMI  shift, and go to state 16
 
-    assop  go to state 18
+    $default  reduce using rule 37 (NM)
+
+    NM  go to state 17
+
+
+state 96
+
+   46 ariexp: ID LB RB .
+
+    $default  reduce using rule 46 (ariexp)
+
+
+state 97
+
+   52 value: MINUS . CONSTANTNUM
+
+    CONSTANTNUM  shift, and go to state 68
+
+
+state 98
+
+   51 value: ADD . CONSTANTNUM
+
+    CONSTANTNUM  shift, and go to state 70
+
+
+state 99
+
+   47 ariexp: ID LB vlist . RB
+
+    RB  shift, and go to state 112
+
+
+state 100
+
+   48 vlist: value .
+   49      | value . COMMA value
+
+    COMMA  shift, and go to state 113
+
+    $default  reduce using rule 48 (vlist)
+
+
+state 101
+
+   41 ariexplist: LB ariexplist RB .
+
+    $default  reduce using rule 41 (ariexplist)
+
+
+state 102
+
+   39 ariexplist: ariexplist ariop LB . ariexplist RB
+
+    ID           shift, and go to state 64
+    LB           shift, and go to state 32
+    CONSTANTNUM  shift, and go to state 33
+    MINUS        shift, and go to state 34
+    ADD          shift, and go to state 35
+
+    ariexplist  go to state 114
+    ariexp      go to state 66
+    value       go to state 40
+    useID       go to state 41
+
+
+state 103
+
+   38 ariexplist: ariexplist ariop ariexp .
+
+    $default  reduce using rule 38 (ariexplist)
 
 
 state 104
 
-   45 ariexp: ID LB vlist RB .
+   56 conexp: ariexp relop ariexp .
 
-    $default  reduce using rule 45 (ariexp)
+    $default  reduce using rule 56 (conexp)
 
 
 state 105
 
-   47 vlist: value COMMA . value
+   55 conexplist: conexp logop M . conexp
 
-    ID           shift, and go to state 84
-    CONSTANTNUM  shift, and go to state 26
-    MINUS        shift, and go to state 86
-    ADD          shift, and go to state 87
+    ID           shift, and go to state 64
+    CONSTANTNUM  shift, and go to state 33
+    MINUS        shift, and go to state 34
+    ADD          shift, and go to state 35
 
-    value  go to state 114
+    ariexp  go to state 115
+    value   go to state 40
+    useID   go to state 41
+    conexp  go to state 116
 
 
 state 106
-
-   37 ariexplist: ariexplist . ariop ariexp
-   38           | ariexplist . ariop LB ariexplist RB
-   38           | ariexplist ariop LB ariexplist . RB
-
-    RB      shift, and go to state 115
-    MINUS   shift, and go to state 50
-    ADD     shift, and go to state 51
-    DIVIDE  shift, and go to state 52
-    TIMES   shift, and go to state 53
-
-    ariop  go to state 54
-
-
-state 107
-
-   54 conexp: ariexp . relop ariexp
-
-    EQUAL         shift, and go to state 55
-    NOTEQUAL      shift, and go to state 56
-    LESSEQUAL     shift, and go to state 57
-    GREATEREQUAL  shift, and go to state 58
-    LESS          shift, and go to state 59
-    GREATER       shift, and go to state 60
-
-    relop  go to state 61
-
-
-state 108
-
-   53 conexplist: conexp logop M conexp .
-
-    $default  reduce using rule 53 (conexplist)
-
-
-state 109
 
    21 codeitem: RETURN ariexplist SEMI .
 
     $default  reduce using rule 21 (codeitem)
 
 
-state 110
+state 107
 
    22 codeitem: RETURN conexplist SEMI .
 
     $default  reduce using rule 22 (codeitem)
 
 
-state 111
+state 108
 
    32 iterstat: FOR LB decl . expstat exp RB stat
 
-    ID           shift, and go to state 24
-    LB           shift, and go to state 25
-    SEMI         shift, and go to state 70
-    CONSTANTNUM  shift, and go to state 26
-    MINUS        shift, and go to state 27
-    ADD          shift, and go to state 28
+    ID           shift, and go to state 31
+    LB           shift, and go to state 32
+    SEMI         shift, and go to state 49
+    CONSTANTNUM  shift, and go to state 33
+    MINUS        shift, and go to state 34
+    ADD          shift, and go to state 35
 
-    expstat     go to state 116
-    exp         go to state 79
-    assexp      go to state 30
-    ariexplist  go to state 31
-    ariexp      go to state 32
-    value       go to state 33
-    conexplist  go to state 34
-    conexp      go to state 35
+    expstat     go to state 117
+    exp         go to state 58
+    assexp      go to state 37
+    ariexplist  go to state 38
+    ariexp      go to state 39
+    value       go to state 40
+    useID       go to state 41
+    conexplist  go to state 42
+    conexp      go to state 43
+
+
+state 109
+
+   31 iterstat: WHILE LB M . exp RB M stat
+
+    ID           shift, and go to state 31
+    LB           shift, and go to state 32
+    CONSTANTNUM  shift, and go to state 33
+    MINUS        shift, and go to state 34
+    ADD          shift, and go to state 35
+
+    exp         go to state 118
+    assexp      go to state 37
+    ariexplist  go to state 38
+    ariexp      go to state 39
+    value       go to state 40
+    useID       go to state 41
+    conexplist  go to state 42
+    conexp      go to state 43
+
+
+state 110
+
+   29 selstat: IF LB exp . RB M stat ELSE N M stat
+   30        | IF LB exp . RB M stat
+
+    RB  shift, and go to state 119
+
+
+state 111
+
+   18 codelist: codelist M codeitem .
+
+    $default  reduce using rule 18 (codelist)
 
 
 state 112
 
-   31 iterstat: WHILE LB exp . RB stat
+   47 ariexp: ID LB vlist RB .
 
-    RB  shift, and go to state 117
+    $default  reduce using rule 47 (ariexp)
 
 
 state 113
 
-   29 selstat: IF LB exp . RB stat ELSE stat
-   30        | IF LB exp . RB stat
+   49 vlist: value COMMA . value
 
-    RB  shift, and go to state 118
+    CONSTANTNUM  shift, and go to state 33
+    MINUS        shift, and go to state 97
+    ADD          shift, and go to state 98
+
+    value  go to state 120
 
 
 state 114
 
-   47 vlist: value COMMA value .
+   38 ariexplist: ariexplist . ariop ariexp
+   39           | ariexplist . ariop LB ariexplist RB
+   39           | ariexplist ariop LB ariexplist . RB
 
-    $default  reduce using rule 47 (vlist)
+    RB      shift, and go to state 121
+    MINUS   shift, and go to state 72
+    ADD     shift, and go to state 73
+    DIVIDE  shift, and go to state 74
+    TIMES   shift, and go to state 75
+
+    ariop  go to state 76
 
 
 state 115
 
-   38 ariexplist: ariexplist ariop LB ariexplist RB .
+   56 conexp: ariexp . relop ariexp
 
-    $default  reduce using rule 38 (ariexplist)
+    EQUAL         shift, and go to state 77
+    NOTEQUAL      shift, and go to state 78
+    LESSEQUAL     shift, and go to state 79
+    GREATEREQUAL  shift, and go to state 80
+    LESS          shift, and go to state 81
+    GREATER       shift, and go to state 82
+
+    relop  go to state 83
 
 
 state 116
 
-   32 iterstat: FOR LB decl expstat . exp RB stat
+   55 conexplist: conexp logop M conexp .
 
-    ID           shift, and go to state 24
-    LB           shift, and go to state 25
-    CONSTANTNUM  shift, and go to state 26
-    MINUS        shift, and go to state 27
-    ADD          shift, and go to state 28
-
-    exp         go to state 119
-    assexp      go to state 30
-    ariexplist  go to state 31
-    ariexp      go to state 32
-    value       go to state 33
-    conexplist  go to state 34
-    conexp      go to state 35
+    $default  reduce using rule 55 (conexplist)
 
 
 state 117
 
-   31 iterstat: WHILE LB exp RB . stat
+   32 iterstat: FOR LB decl expstat . exp RB stat
 
-    ID           shift, and go to state 24
-    FOR          shift, and go to state 66
-    WHILE        shift, and go to state 67
-    IF           shift, and go to state 68
-    LB           shift, and go to state 25
-    LBB          shift, and go to state 36
-    SEMI         shift, and go to state 70
-    CONSTANTNUM  shift, and go to state 26
-    MINUS        shift, and go to state 27
-    ADD          shift, and go to state 28
+    ID           shift, and go to state 31
+    LB           shift, and go to state 32
+    CONSTANTNUM  shift, and go to state 33
+    MINUS        shift, and go to state 34
+    ADD          shift, and go to state 35
 
-    body        go to state 72
-    stat        go to state 120
-    expstat     go to state 76
-    selstat     go to state 77
-    iterstat    go to state 78
-    exp         go to state 79
-    assexp      go to state 30
-    ariexplist  go to state 31
-    ariexp      go to state 32
-    value       go to state 33
-    conexplist  go to state 34
-    conexp      go to state 35
+    exp         go to state 122
+    assexp      go to state 37
+    ariexplist  go to state 38
+    ariexp      go to state 39
+    value       go to state 40
+    useID       go to state 41
+    conexplist  go to state 42
+    conexp      go to state 43
 
 
 state 118
 
-   29 selstat: IF LB exp RB . stat ELSE stat
-   30        | IF LB exp RB . stat
+   31 iterstat: WHILE LB M exp . RB M stat
 
-    ID           shift, and go to state 24
-    FOR          shift, and go to state 66
-    WHILE        shift, and go to state 67
-    IF           shift, and go to state 68
-    LB           shift, and go to state 25
-    LBB          shift, and go to state 36
-    SEMI         shift, and go to state 70
-    CONSTANTNUM  shift, and go to state 26
-    MINUS        shift, and go to state 27
-    ADD          shift, and go to state 28
-
-    body        go to state 72
-    stat        go to state 121
-    expstat     go to state 76
-    selstat     go to state 77
-    iterstat    go to state 78
-    exp         go to state 79
-    assexp      go to state 30
-    ariexplist  go to state 31
-    ariexp      go to state 32
-    value       go to state 33
-    conexplist  go to state 34
-    conexp      go to state 35
+    RB  shift, and go to state 123
 
 
 state 119
 
-   32 iterstat: FOR LB decl expstat exp . RB stat
+   29 selstat: IF LB exp RB . M stat ELSE N M stat
+   30        | IF LB exp RB . M stat
 
-    RB  shift, and go to state 122
+    $default  reduce using rule 57 (M)
+
+    M  go to state 124
 
 
 state 120
 
-   31 iterstat: WHILE LB exp RB stat .
+   49 vlist: value COMMA value .
 
-    $default  reduce using rule 31 (iterstat)
+    $default  reduce using rule 49 (vlist)
 
 
 state 121
 
-   29 selstat: IF LB exp RB stat . ELSE stat
-   30        | IF LB exp RB stat .
+   39 ariexplist: ariexplist ariop LB ariexplist RB .
 
-    ELSE  shift, and go to state 123
+    $default  reduce using rule 39 (ariexplist)
+
+
+state 122
+
+   32 iterstat: FOR LB decl expstat exp . RB stat
+
+    RB  shift, and go to state 125
+
+
+state 123
+
+   31 iterstat: WHILE LB M exp RB . M stat
+
+    $default  reduce using rule 57 (M)
+
+    M  go to state 126
+
+
+state 124
+
+   29 selstat: IF LB exp RB M . stat ELSE N M stat
+   30        | IF LB exp RB M . stat
+
+    ID           shift, and go to state 31
+    FOR          shift, and go to state 45
+    WHILE        shift, and go to state 46
+    IF           shift, and go to state 47
+    LB           shift, and go to state 32
+    LBB          shift, and go to state 25
+    SEMI         shift, and go to state 49
+    CONSTANTNUM  shift, and go to state 33
+    MINUS        shift, and go to state 34
+    ADD          shift, and go to state 35
+
+    body        go to state 51
+    stat        go to state 127
+    expstat     go to state 55
+    selstat     go to state 56
+    iterstat    go to state 57
+    exp         go to state 58
+    assexp      go to state 37
+    ariexplist  go to state 38
+    ariexp      go to state 39
+    value       go to state 40
+    useID       go to state 41
+    conexplist  go to state 42
+    conexp      go to state 43
+
+
+state 125
+
+   32 iterstat: FOR LB decl expstat exp RB . stat
+
+    ID           shift, and go to state 31
+    FOR          shift, and go to state 45
+    WHILE        shift, and go to state 46
+    IF           shift, and go to state 47
+    LB           shift, and go to state 32
+    LBB          shift, and go to state 25
+    SEMI         shift, and go to state 49
+    CONSTANTNUM  shift, and go to state 33
+    MINUS        shift, and go to state 34
+    ADD          shift, and go to state 35
+
+    body        go to state 51
+    stat        go to state 128
+    expstat     go to state 55
+    selstat     go to state 56
+    iterstat    go to state 57
+    exp         go to state 58
+    assexp      go to state 37
+    ariexplist  go to state 38
+    ariexp      go to state 39
+    value       go to state 40
+    useID       go to state 41
+    conexplist  go to state 42
+    conexp      go to state 43
+
+
+state 126
+
+   31 iterstat: WHILE LB M exp RB M . stat
+
+    ID           shift, and go to state 31
+    FOR          shift, and go to state 45
+    WHILE        shift, and go to state 46
+    IF           shift, and go to state 47
+    LB           shift, and go to state 32
+    LBB          shift, and go to state 25
+    SEMI         shift, and go to state 49
+    CONSTANTNUM  shift, and go to state 33
+    MINUS        shift, and go to state 34
+    ADD          shift, and go to state 35
+
+    body        go to state 51
+    stat        go to state 129
+    expstat     go to state 55
+    selstat     go to state 56
+    iterstat    go to state 57
+    exp         go to state 58
+    assexp      go to state 37
+    ariexplist  go to state 38
+    ariexp      go to state 39
+    value       go to state 40
+    useID       go to state 41
+    conexplist  go to state 42
+    conexp      go to state 43
+
+
+state 127
+
+   29 selstat: IF LB exp RB M stat . ELSE N M stat
+   30        | IF LB exp RB M stat .
+
+    ELSE  shift, and go to state 130
 
     ELSE      [reduce using rule 30 (selstat)]
     $default  reduce using rule 30 (selstat)
 
 
-state 122
-
-   32 iterstat: FOR LB decl expstat exp RB . stat
-
-    ID           shift, and go to state 24
-    FOR          shift, and go to state 66
-    WHILE        shift, and go to state 67
-    IF           shift, and go to state 68
-    LB           shift, and go to state 25
-    LBB          shift, and go to state 36
-    SEMI         shift, and go to state 70
-    CONSTANTNUM  shift, and go to state 26
-    MINUS        shift, and go to state 27
-    ADD          shift, and go to state 28
-
-    body        go to state 72
-    stat        go to state 124
-    expstat     go to state 76
-    selstat     go to state 77
-    iterstat    go to state 78
-    exp         go to state 79
-    assexp      go to state 30
-    ariexplist  go to state 31
-    ariexp      go to state 32
-    value       go to state 33
-    conexplist  go to state 34
-    conexp      go to state 35
-
-
-state 123
-
-   29 selstat: IF LB exp RB stat ELSE . stat
-
-    ID           shift, and go to state 24
-    FOR          shift, and go to state 66
-    WHILE        shift, and go to state 67
-    IF           shift, and go to state 68
-    LB           shift, and go to state 25
-    LBB          shift, and go to state 36
-    SEMI         shift, and go to state 70
-    CONSTANTNUM  shift, and go to state 26
-    MINUS        shift, and go to state 27
-    ADD          shift, and go to state 28
-
-    body        go to state 72
-    stat        go to state 125
-    expstat     go to state 76
-    selstat     go to state 77
-    iterstat    go to state 78
-    exp         go to state 79
-    assexp      go to state 30
-    ariexplist  go to state 31
-    ariexp      go to state 32
-    value       go to state 33
-    conexplist  go to state 34
-    conexp      go to state 35
-
-
-state 124
+state 128
 
    32 iterstat: FOR LB decl expstat exp RB stat .
 
     $default  reduce using rule 32 (iterstat)
 
 
-state 125
+state 129
 
-   29 selstat: IF LB exp RB stat ELSE stat .
+   31 iterstat: WHILE LB M exp RB M stat .
+
+    $default  reduce using rule 31 (iterstat)
+
+
+state 130
+
+   29 selstat: IF LB exp RB M stat ELSE . N M stat
+
+    $default  reduce using rule 58 (N)
+
+    N  go to state 131
+
+
+state 131
+
+   29 selstat: IF LB exp RB M stat ELSE N . M stat
+
+    $default  reduce using rule 57 (M)
+
+    M  go to state 132
+
+
+state 132
+
+   29 selstat: IF LB exp RB M stat ELSE N M . stat
+
+    ID           shift, and go to state 31
+    FOR          shift, and go to state 45
+    WHILE        shift, and go to state 46
+    IF           shift, and go to state 47
+    LB           shift, and go to state 32
+    LBB          shift, and go to state 25
+    SEMI         shift, and go to state 49
+    CONSTANTNUM  shift, and go to state 33
+    MINUS        shift, and go to state 34
+    ADD          shift, and go to state 35
+
+    body        go to state 51
+    stat        go to state 133
+    expstat     go to state 55
+    selstat     go to state 56
+    iterstat    go to state 57
+    exp         go to state 58
+    assexp      go to state 37
+    ariexplist  go to state 38
+    ariexp      go to state 39
+    value       go to state 40
+    useID       go to state 41
+    conexplist  go to state 42
+    conexp      go to state 43
+
+
+state 133
+
+   29 selstat: IF LB exp RB M stat ELSE N M stat .
 
     $default  reduce using rule 29 (selstat)

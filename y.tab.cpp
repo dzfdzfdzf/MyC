@@ -41,7 +41,7 @@
    There are some unavoidable exceptions within include files to
    define necessary library symbols; they are noted "INFRINGES ON
    USER NAME SPACE" below.  */
-/**
+   /**
  * @file y.tab.cpp
  * @brief bison生成的语法分析器,同时完成语义分析
  * @date 2023-6-1
@@ -74,7 +74,7 @@
 /* Copy the first part of user declarations.  */
 
 /* Line 189 of yacc.c  */
-#line 2 "MyC2.y"
+#line 2 "MyC.y"
 
 #include<stdio.h>
 #include<stdlib.h>
@@ -223,13 +223,13 @@ typedef union YYSTYPE
 {
 
 /* Line 214 of yacc.c  */
-#line 36 "MyC2.y"
+#line 36 "MyC.y"
 
     struct{char name[15];char type[15];char value[150];char kind[15];} IDAttr;
     int nexlist;//N
     char num[150];//常数值
     char op[15];//各种运算符
-    struct { int tlist,flist;} con;//truelist，falselist
+    struct { int tlist,flist;} con;//truelist，falselist，条件语句
     int quad; //M
     char IDType[15];
     struct{char IDName[15];char IDValue[150];}ASS;//赋值语句
@@ -566,14 +566,14 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,    89,    89,    91,    96,   107,   110,   116,   119,   122,
-     125,   131,   148,   163,   166,   172,   181,   184,   190,   194,
-     204,   207,   211,   214,   220,   223,   226,   229,   236,   239,
-     248,   255,   263,   270,   279,   284,   287,   297,   310,   321,
-     384,   387,   393,   398,   404,   410,   420,   432,   435,   441,
-     444,   453,   458,   463,   474,   497,   502,   518,   536,   541,
-     548,   552,   556,   560,   567,   571,   579,   584,   588,   592,
-     596,   600,   607,   613,   618,   623,   628
+       0,    92,    92,    99,   103,   111,   114,   120,   123,   126,
+     129,   135,   152,   167,   170,   176,   185,   188,   194,   198,
+     208,   211,   215,   218,   224,   227,   230,   233,   240,   243,
+     252,   259,   267,   274,   283,   288,   291,   301,   314,   325,
+     388,   391,   397,   402,   408,   414,   424,   436,   439,   445,
+     448,   457,   462,   467,   478,   501,   506,   522,   540,   545,
+     552,   556,   560,   564,   571,   575,   583,   588,   592,   596,
+     600,   604,   611,   617,   622,   627,   632
 };
 #endif
 
@@ -1572,32 +1572,39 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-        case 3:
+        case 2:
 
 /* Line 1455 of yacc.c  */
-#line 91 "MyC2.y"
+#line 92 "MyC.y"
+    {
+        fprintf(fi, "START -> Cprogram\n");
+
+   }
+    break;
+
+  case 3:
+
+/* Line 1455 of yacc.c  */
+#line 99 "MyC.y"
     {
         fprintf(fi, "Cprogram -> code\n");
-        if(!isError)fprintf(fi2,"Success!\n");
-        else fprintf(fi2,"Fail!\n");
+      
     }
     break;
 
   case 4:
 
 /* Line 1455 of yacc.c  */
-#line 96 "MyC2.y"
+#line 103 "MyC.y"
     {
         fprintf(fi,"Cprogram -> Cprogram code\n");
-        if(!isError)fprintf(fi2,"Success!\n");
-        else fprintf(fi2,"Fail!\n");
     }
     break;
 
   case 5:
 
 /* Line 1455 of yacc.c  */
-#line 107 "MyC2.y"
+#line 111 "MyC.y"
     {
         fprintf(fi, "code -> function\n");
     }
@@ -1606,7 +1613,7 @@ yyreduce:
   case 6:
 
 /* Line 1455 of yacc.c  */
-#line 110 "MyC2.y"
+#line 114 "MyC.y"
     {
         fprintf(fi, "code -> decl\n");
     }
@@ -1615,7 +1622,7 @@ yyreduce:
   case 7:
 
 /* Line 1455 of yacc.c  */
-#line 116 "MyC2.y"
+#line 120 "MyC.y"
     {
          fprintf(fi, "function -> type ID LB plist RB body\n");
     }
@@ -1624,7 +1631,7 @@ yyreduce:
   case 8:
 
 /* Line 1455 of yacc.c  */
-#line 119 "MyC2.y"
+#line 123 "MyC.y"
     {
         fprintf(fi, "function -> type ID LB RB body\n");
     }
@@ -1633,7 +1640,7 @@ yyreduce:
   case 9:
 
 /* Line 1455 of yacc.c  */
-#line 122 "MyC2.y"
+#line 126 "MyC.y"
     {
          fprintf(fi, "function -> type ID LB plist RB SEMI\n");
     }
@@ -1642,7 +1649,7 @@ yyreduce:
   case 10:
 
 /* Line 1455 of yacc.c  */
-#line 125 "MyC2.y"
+#line 129 "MyC.y"
     {
          fprintf(fi, "function -> type ID LB RB SEMI\n");
     }
@@ -1651,7 +1658,7 @@ yyreduce:
   case 11:
 
 /* Line 1455 of yacc.c  */
-#line 131 "MyC2.y"
+#line 135 "MyC.y"
     {
         fprintf(fi,"decl -> type ID SEMI\n");
         strcpy((yyvsp[(2) - (3)].IDAttr).kind,"var");
@@ -1674,7 +1681,7 @@ yyreduce:
   case 12:
 
 /* Line 1455 of yacc.c  */
-#line 148 "MyC2.y"
+#line 152 "MyC.y"
     {
         fprintf(fi,"decl -> type assexp SEMI\n");
         Symbol * symbol=idt.myLookup(std::string((yyvsp[(2) - (3)].ASS).IDName));
@@ -1692,7 +1699,7 @@ yyreduce:
   case 13:
 
 /* Line 1455 of yacc.c  */
-#line 163 "MyC2.y"
+#line 167 "MyC.y"
     {
         fprintf(fi,"plist -> pdecl\n");
     }
@@ -1701,7 +1708,7 @@ yyreduce:
   case 14:
 
 /* Line 1455 of yacc.c  */
-#line 166 "MyC2.y"
+#line 170 "MyC.y"
     {
         fprintf(fi,"plist -> plist COMMA pdecl\n");
     }
@@ -1710,7 +1717,7 @@ yyreduce:
   case 15:
 
 /* Line 1455 of yacc.c  */
-#line 172 "MyC2.y"
+#line 176 "MyC.y"
     {
         fprintf(fi,"pdecl -> type ID\n");
 
@@ -1720,7 +1727,7 @@ yyreduce:
   case 16:
 
 /* Line 1455 of yacc.c  */
-#line 181 "MyC2.y"
+#line 185 "MyC.y"
     {
         fprintf(fi,"body -> LBB RBB\n");
     }
@@ -1729,7 +1736,7 @@ yyreduce:
   case 17:
 
 /* Line 1455 of yacc.c  */
-#line 184 "MyC2.y"
+#line 188 "MyC.y"
     {
         fprintf(fi,"body -> LBB codelist RBB\n");
     }
@@ -1738,7 +1745,7 @@ yyreduce:
   case 18:
 
 /* Line 1455 of yacc.c  */
-#line 190 "MyC2.y"
+#line 194 "MyC.y"
     {
         fprintf(fi,"codelist -> codeitem\n");
         (yyval.nexlist)=(yyvsp[(1) - (1)].nexlist);
@@ -1748,7 +1755,7 @@ yyreduce:
   case 19:
 
 /* Line 1455 of yacc.c  */
-#line 194 "MyC2.y"
+#line 198 "MyC.y"
     {
          fprintf(fi,"codelist -> codelist codeitem\n");
          BackPatch((yyvsp[(1) - (3)].nexlist),(yyvsp[(2) - (3)].quad));
@@ -1759,7 +1766,7 @@ yyreduce:
   case 20:
 
 /* Line 1455 of yacc.c  */
-#line 204 "MyC2.y"
+#line 208 "MyC.y"
     {
         fprintf(fi,"codeitem -> decl\n");
     }
@@ -1768,7 +1775,7 @@ yyreduce:
   case 21:
 
 /* Line 1455 of yacc.c  */
-#line 207 "MyC2.y"
+#line 211 "MyC.y"
     {
         fprintf(fi,"codeitem -> stat\n");
         (yyval.nexlist)=(yyvsp[(1) - (1)].nexlist);
@@ -1778,7 +1785,7 @@ yyreduce:
   case 22:
 
 /* Line 1455 of yacc.c  */
-#line 211 "MyC2.y"
+#line 215 "MyC.y"
     {
         fprintf(fi,"codeitem -> RETURN ariexplist SEMI\n");
     }
@@ -1787,7 +1794,7 @@ yyreduce:
   case 23:
 
 /* Line 1455 of yacc.c  */
-#line 214 "MyC2.y"
+#line 218 "MyC.y"
     {
         fprintf(fi,"codeitem -> RETURN conexplist SEMI\n");
     }
@@ -1796,7 +1803,7 @@ yyreduce:
   case 24:
 
 /* Line 1455 of yacc.c  */
-#line 220 "MyC2.y"
+#line 224 "MyC.y"
     {
         fprintf(fi,"stat -> body\n");
     }
@@ -1805,7 +1812,7 @@ yyreduce:
   case 25:
 
 /* Line 1455 of yacc.c  */
-#line 223 "MyC2.y"
+#line 227 "MyC.y"
     {
         fprintf(fi,"stat -> expstat\n");
     }
@@ -1814,7 +1821,7 @@ yyreduce:
   case 26:
 
 /* Line 1455 of yacc.c  */
-#line 226 "MyC2.y"
+#line 230 "MyC.y"
     {
         fprintf(fi,"stat -> selstat\n");
     }
@@ -1823,7 +1830,7 @@ yyreduce:
   case 27:
 
 /* Line 1455 of yacc.c  */
-#line 229 "MyC2.y"
+#line 233 "MyC.y"
     {
         fprintf(fi,"stat -> iterstat\n");
         (yyval.nexlist)=(yyvsp[(1) - (1)].nexlist);
@@ -1833,7 +1840,7 @@ yyreduce:
   case 28:
 
 /* Line 1455 of yacc.c  */
-#line 236 "MyC2.y"
+#line 240 "MyC.y"
     {
         fprintf(fi,"expstat -> SEMI\n");
     }
@@ -1842,7 +1849,7 @@ yyreduce:
   case 29:
 
 /* Line 1455 of yacc.c  */
-#line 239 "MyC2.y"
+#line 243 "MyC.y"
     {
         fprintf(fi,"expstat -> exp SEMI\n");
     }
@@ -1851,7 +1858,7 @@ yyreduce:
   case 30:
 
 /* Line 1455 of yacc.c  */
-#line 248 "MyC2.y"
+#line 252 "MyC.y"
     {
         fprintf(fi,"selstat -> IF LB exp RB stat ELSE stat\n");
         BackPatch((yyvsp[(3) - (10)].EXP).tlist,(yyvsp[(5) - (10)].quad));
@@ -1864,7 +1871,7 @@ yyreduce:
   case 31:
 
 /* Line 1455 of yacc.c  */
-#line 255 "MyC2.y"
+#line 259 "MyC.y"
     {
         fprintf(fi,"selstat -> IF LB exp RB stat \n");
         BackPatch((yyvsp[(3) - (6)].EXP).tlist,(yyvsp[(5) - (6)].quad));
@@ -1875,7 +1882,7 @@ yyreduce:
   case 32:
 
 /* Line 1455 of yacc.c  */
-#line 263 "MyC2.y"
+#line 267 "MyC.y"
     {
         fprintf(fi,"iterstat -> WHILE LB M exp RB M stat\n");
         BackPatch((yyvsp[(7) - (7)].nexlist),(yyvsp[(3) - (7)].quad));
@@ -1888,7 +1895,7 @@ yyreduce:
   case 33:
 
 /* Line 1455 of yacc.c  */
-#line 270 "MyC2.y"
+#line 274 "MyC.y"
     {
         fprintf(fi,"iterstat -> FOR LB decl expstat exp RB stat\n");
     }
@@ -1897,7 +1904,7 @@ yyreduce:
   case 34:
 
 /* Line 1455 of yacc.c  */
-#line 279 "MyC2.y"
+#line 283 "MyC.y"
     {
         fprintf(fi,"exp -> conexplist\n");
         (yyval.EXP).tlist=(yyvsp[(1) - (1)].con).tlist;
@@ -1908,7 +1915,7 @@ yyreduce:
   case 35:
 
 /* Line 1455 of yacc.c  */
-#line 284 "MyC2.y"
+#line 288 "MyC.y"
     {
         fprintf(fi,"exp -> assexp\n");
     }
@@ -1917,7 +1924,7 @@ yyreduce:
   case 36:
 
 /* Line 1455 of yacc.c  */
-#line 287 "MyC2.y"
+#line 291 "MyC.y"
     {
         fprintf(fi,"exp -> ariexplist\n");
         strcpy((yyval.EXP).IDValue,(yyvsp[(1) - (1)].EXP).IDValue);
@@ -1930,7 +1937,7 @@ yyreduce:
   case 37:
 
 /* Line 1455 of yacc.c  */
-#line 297 "MyC2.y"
+#line 301 "MyC.y"
     {
         fprintf(fi,"assexp -> ID assop exp\n");
         strcpy((yyvsp[(1) - (4)].IDAttr).name,(yyvsp[(2) - (4)].name));
@@ -1946,7 +1953,7 @@ yyreduce:
   case 38:
 
 /* Line 1455 of yacc.c  */
-#line 310 "MyC2.y"
+#line 314 "MyC.y"
     {
         fprintf(fi,"NM -> empty\n");
         strcpy((yyval.name),curID.c_str());
@@ -1957,7 +1964,7 @@ yyreduce:
   case 39:
 
 /* Line 1455 of yacc.c  */
-#line 321 "MyC2.y"
+#line 325 "MyC.y"
     {
         fprintf(fi,"ariexplist -> ariexplist ariop ariexp\n");
         (yyval.EXP).isID=1;
@@ -2026,7 +2033,7 @@ yyreduce:
   case 40:
 
 /* Line 1455 of yacc.c  */
-#line 384 "MyC2.y"
+#line 388 "MyC.y"
     {
         fprintf(fi,"ariexplist -> ariexplist ariop LB ariexplist RB\n");
     }
@@ -2035,7 +2042,7 @@ yyreduce:
   case 41:
 
 /* Line 1455 of yacc.c  */
-#line 387 "MyC2.y"
+#line 391 "MyC.y"
     {
         fprintf(fi,"ariexplist -> ariexp\n");
         strcpy((yyval.EXP).IDValue,(yyvsp[(1) - (1)].EXP).IDValue);
@@ -2047,7 +2054,7 @@ yyreduce:
   case 42:
 
 /* Line 1455 of yacc.c  */
-#line 393 "MyC2.y"
+#line 397 "MyC.y"
     {
         fprintf(fi,"ariexplist -> LB ariexplist RB\n");
     }
@@ -2056,7 +2063,7 @@ yyreduce:
   case 43:
 
 /* Line 1455 of yacc.c  */
-#line 398 "MyC2.y"
+#line 402 "MyC.y"
     {
         fprintf(fi,"ariexp -> value\n");
         strcpy((yyval.EXP).IDValue,(yyvsp[(1) - (1)].num));
@@ -2068,7 +2075,7 @@ yyreduce:
   case 44:
 
 /* Line 1455 of yacc.c  */
-#line 404 "MyC2.y"
+#line 408 "MyC.y"
     {
         fprintf(fi,"ariexp -> ADD useID\n");
         strcpy((yyval.EXP).IDValue,(yyvsp[(2) - (2)].IDAttr).value);
@@ -2080,7 +2087,7 @@ yyreduce:
   case 45:
 
 /* Line 1455 of yacc.c  */
-#line 410 "MyC2.y"
+#line 414 "MyC.y"
     {
         fprintf(fi,"ariexp -> MINUS useID\n");
         std::string temp=std::string((yyvsp[(2) - (2)].IDAttr).value).insert(0,"-");
@@ -2096,7 +2103,7 @@ yyreduce:
   case 46:
 
 /* Line 1455 of yacc.c  */
-#line 420 "MyC2.y"
+#line 424 "MyC.y"
     {
         fprintf(fi,"ariexp -> useID\n");
         strcpy((yyval.EXP).IDValue,(yyvsp[(1) - (1)].IDAttr).value);
@@ -2108,7 +2115,7 @@ yyreduce:
   case 47:
 
 /* Line 1455 of yacc.c  */
-#line 432 "MyC2.y"
+#line 436 "MyC.y"
     {
         fprintf(fi,"ariexp -> ID LB RB\n");
     }
@@ -2117,7 +2124,7 @@ yyreduce:
   case 48:
 
 /* Line 1455 of yacc.c  */
-#line 435 "MyC2.y"
+#line 439 "MyC.y"
     {
         fprintf(fi,"ariexp -> ID LB vlist RB\n");
     }
@@ -2126,7 +2133,7 @@ yyreduce:
   case 49:
 
 /* Line 1455 of yacc.c  */
-#line 441 "MyC2.y"
+#line 445 "MyC.y"
     {
         fprintf(fi,"vlist -> value\n");
     }
@@ -2135,7 +2142,7 @@ yyreduce:
   case 50:
 
 /* Line 1455 of yacc.c  */
-#line 444 "MyC2.y"
+#line 448 "MyC.y"
     {
         fprintf(fi,"vlist -> value COMMA value\n");
     }
@@ -2144,7 +2151,7 @@ yyreduce:
   case 51:
 
 /* Line 1455 of yacc.c  */
-#line 453 "MyC2.y"
+#line 457 "MyC.y"
     {
         fprintf(fi,"value -> CONSTANTNUM\n");
         strcpy((yyvsp[(1) - (1)].num),curValue.c_str());
@@ -2155,7 +2162,7 @@ yyreduce:
   case 52:
 
 /* Line 1455 of yacc.c  */
-#line 458 "MyC2.y"
+#line 462 "MyC.y"
     {
         fprintf(fi,"value -> ADD CONSTANTNUM\n");
         strcpy((yyvsp[(2) - (2)].num),curValue.c_str());
@@ -2166,7 +2173,7 @@ yyreduce:
   case 53:
 
 /* Line 1455 of yacc.c  */
-#line 463 "MyC2.y"
+#line 467 "MyC.y"
     {
         fprintf(fi,"value -> MINUS CONSTANTNUM\n");
         strcpy((yyvsp[(2) - (2)].num),curValue.c_str());
@@ -2180,7 +2187,7 @@ yyreduce:
   case 54:
 
 /* Line 1455 of yacc.c  */
-#line 474 "MyC2.y"
+#line 478 "MyC.y"
     {
         fprintf(fi,"useID -> ID\n");
         strcpy((yyvsp[(1) - (1)].IDAttr).name,curID.c_str());
@@ -2203,7 +2210,7 @@ yyreduce:
   case 55:
 
 /* Line 1455 of yacc.c  */
-#line 497 "MyC2.y"
+#line 501 "MyC.y"
     {
         fprintf(fi,"conexplist -> conexp\n");
         (yyval.con).tlist=(yyvsp[(1) - (1)].con).tlist;
@@ -2214,7 +2221,7 @@ yyreduce:
   case 56:
 
 /* Line 1455 of yacc.c  */
-#line 502 "MyC2.y"
+#line 506 "MyC.y"
     {
         fprintf(fi,"conexplist -> conexp logop M conexp\n");
         if(!strcmp((yyvsp[(2) - (4)].op),"&&")){
@@ -2234,7 +2241,7 @@ yyreduce:
   case 57:
 
 /* Line 1455 of yacc.c  */
-#line 518 "MyC2.y"
+#line 522 "MyC.y"
     {
         fprintf(fi,"conexp ->  ariexp relop ariexp\n");
         (yyval.con).tlist=nexq;
@@ -2254,7 +2261,7 @@ yyreduce:
   case 58:
 
 /* Line 1455 of yacc.c  */
-#line 536 "MyC2.y"
+#line 540 "MyC.y"
     {fprintf(fi,"empty -> M\n");
       (yyval.quad)=nexq;
     }
@@ -2263,7 +2270,7 @@ yyreduce:
   case 59:
 
 /* Line 1455 of yacc.c  */
-#line 541 "MyC2.y"
+#line 545 "MyC.y"
     {
         fprintf(fi,"empty -> n\n");
         (yyval.nexlist)=nexq;
@@ -2274,7 +2281,7 @@ yyreduce:
   case 60:
 
 /* Line 1455 of yacc.c  */
-#line 548 "MyC2.y"
+#line 552 "MyC.y"
     {
         fprintf(fi,"ariop -> ADD\n");
         strcpy((yyval.op),"ADD");
@@ -2284,7 +2291,7 @@ yyreduce:
   case 61:
 
 /* Line 1455 of yacc.c  */
-#line 552 "MyC2.y"
+#line 556 "MyC.y"
     {
         fprintf(fi,"ariop -> MINUS\n");
         strcpy((yyval.op),"MINUS");
@@ -2294,7 +2301,7 @@ yyreduce:
   case 62:
 
 /* Line 1455 of yacc.c  */
-#line 556 "MyC2.y"
+#line 560 "MyC.y"
     {
         fprintf(fi,"ariop -> TIMES\n");
         strcpy((yyval.op),"TIMES");
@@ -2304,7 +2311,7 @@ yyreduce:
   case 63:
 
 /* Line 1455 of yacc.c  */
-#line 560 "MyC2.y"
+#line 564 "MyC.y"
     {
         fprintf(fi,"ariop -> DIVIDE\n");
         strcpy((yyval.op),"DIVIDE");
@@ -2314,7 +2321,7 @@ yyreduce:
   case 64:
 
 /* Line 1455 of yacc.c  */
-#line 567 "MyC2.y"
+#line 571 "MyC.y"
     {
         fprintf(fi,"logop -> DAND\n");
         strcpy((yyval.op),"&&");
@@ -2324,7 +2331,7 @@ yyreduce:
   case 65:
 
 /* Line 1455 of yacc.c  */
-#line 571 "MyC2.y"
+#line 575 "MyC.y"
     {
         fprintf(fi,"logop -> DOR\n");
         strcpy((yyval.op),"||");
@@ -2334,7 +2341,7 @@ yyreduce:
   case 66:
 
 /* Line 1455 of yacc.c  */
-#line 579 "MyC2.y"
+#line 583 "MyC.y"
     {
         fprintf(fi,"relop -> EQUAL\n");
         strcpy((yyval.op),"==");
@@ -2345,7 +2352,7 @@ yyreduce:
   case 67:
 
 /* Line 1455 of yacc.c  */
-#line 584 "MyC2.y"
+#line 588 "MyC.y"
     {
         fprintf(fi,"relop -> LESS\n");
         strcpy((yyval.op),"<");
@@ -2355,7 +2362,7 @@ yyreduce:
   case 68:
 
 /* Line 1455 of yacc.c  */
-#line 588 "MyC2.y"
+#line 592 "MyC.y"
     {
         fprintf(fi,"relop -> GREATER\n");
         strcpy((yyval.op),">");
@@ -2365,7 +2372,7 @@ yyreduce:
   case 69:
 
 /* Line 1455 of yacc.c  */
-#line 592 "MyC2.y"
+#line 596 "MyC.y"
     {
         fprintf(fi,"relop -> NOTEQUAL\n");
         strcpy((yyval.op),"!=");
@@ -2375,7 +2382,7 @@ yyreduce:
   case 70:
 
 /* Line 1455 of yacc.c  */
-#line 596 "MyC2.y"
+#line 600 "MyC.y"
     {
         fprintf(fi,"relop -> LESSEQUAL\n");
         strcpy((yyval.op),"<=");
@@ -2385,7 +2392,7 @@ yyreduce:
   case 71:
 
 /* Line 1455 of yacc.c  */
-#line 600 "MyC2.y"
+#line 604 "MyC.y"
     {
         fprintf(fi,"relop -> GREATEREQUAL\n");
         strcpy((yyval.op),">=");
@@ -2395,7 +2402,7 @@ yyreduce:
   case 72:
 
 /* Line 1455 of yacc.c  */
-#line 607 "MyC2.y"
+#line 611 "MyC.y"
     {
         fprintf(fi,"assop -> ASSIGN\n");
     }
@@ -2404,7 +2411,7 @@ yyreduce:
   case 73:
 
 /* Line 1455 of yacc.c  */
-#line 613 "MyC2.y"
+#line 617 "MyC.y"
     {
         fprintf(fi,"type -> VOID\n");
         strcpy((yyval.IDType),"void");
@@ -2415,7 +2422,7 @@ yyreduce:
   case 74:
 
 /* Line 1455 of yacc.c  */
-#line 618 "MyC2.y"
+#line 622 "MyC.y"
     {
         fprintf(fi,"type -> INT\n");
         strcpy((yyval.IDType),"INT");
@@ -2426,7 +2433,7 @@ yyreduce:
   case 75:
 
 /* Line 1455 of yacc.c  */
-#line 623 "MyC2.y"
+#line 627 "MyC.y"
     {
         fprintf(fi,"type -> FLOAT\n");
         strcpy((yyval.IDType),"FLOAT");
@@ -2437,7 +2444,7 @@ yyreduce:
   case 76:
 
 /* Line 1455 of yacc.c  */
-#line 628 "MyC2.y"
+#line 632 "MyC.y"
     {
         fprintf(fi,"type -> DOUBLE\n");
         strcpy((yyval.IDType),"DOUBLE");
@@ -2448,7 +2455,7 @@ yyreduce:
 
 
 /* Line 1455 of yacc.c  */
-#line 2446 "y.tab.c"
+#line 2454 "y.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -2660,8 +2667,7 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 634 "MyC2.y"
-
+#line 638 "MyC.y"
 /**
  * @brief 主函数
  * @param filename 待分析的文件路径
@@ -2678,6 +2684,9 @@ void submain(const char *filename){
     fi3=fopen("Quad.txt","w");
     line=1;
     yyparse(); //调用bison分析
+    if(!isError)fprintf(fi2,"Success!\n");
+    else fprintf(fi2,"Fail!\n");
+    isError=0;
     idt.myPrint();
     idt.myClear();
     pquad(); //打印四元式
@@ -2698,7 +2707,6 @@ std::string NewTemp(){
     tempidt.table[t].name=t;
     return t;
 }
-
 /**
  * @brief 地址回填函数
  * @param l 回填的首地址(第一个要回填的四元式的序号，下一个四元式的序号在qualist[l].res中)
@@ -2718,7 +2726,6 @@ void  BackPatch(int l,int t){
         temp=std::stoi(temp2);
     }
 }
-
 /**
  * @brief 合并，将l2的尾部接到l1的头部
  * @param l1 
@@ -2780,6 +2787,7 @@ void pquad(){
 int yyerror(char *s)
 {
     fprintf(fi2,"line: %d  error: %s \n",line,s);
+    isError=1;
     return 1;
 }
 

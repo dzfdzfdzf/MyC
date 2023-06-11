@@ -33,8 +33,6 @@ LETTER [a-zA-Z]
 ZERO 0
 INTNUM [1-9][0-9]*|{ZERO}
 FLOATNUM ({ZERO}|{INTNUM})\.([0-9]+)
-
-
 ASSIGN \=
 SEMI \;
 COLON \:
