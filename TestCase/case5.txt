@@ -1,0 +1,8 @@
+int main(){
+   int c; 
+   int a=1;
+  double b=1.1;
+  c=2; 
+  int d=c+a;
+  double e=2.2+3.3;
+}

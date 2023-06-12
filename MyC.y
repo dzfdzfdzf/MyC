@@ -34,7 +34,7 @@ int nexq=0;
 %}
 %union 
 {
-    struct{char name[15];char type[15];char value[150];char kind[15];} IDAttr;
+    struct{char name[15];char type[15];char value[150];char kind[15];} IDAttr;//ID
     int nexlist;//N
     char num[150];//常数值
     char op[15];//各种运算符
@@ -43,7 +43,7 @@ int nexq=0;
     char IDType[15];
     struct{char IDName[15];char IDValue[150];}ASS;//赋值语句
     struct{char IDName[15];char IDValue[150];int isID;int tlist;int flist;}EXP;//EXP
-    char name[150];
+    char name[150]; //NM记录ID的名称
 }
 %token ID INT BREAK CASE DOUBLE
 %token CONST FLOAT VOID RETURN 
@@ -206,7 +206,7 @@ body
     }
     ;
 /*
-* 语句块 
+* 语句块，赋值nexlist
 */
 codelist
     : codeitem{
@@ -272,7 +272,7 @@ expstat
     }
     ;
 /*
- *选择语句
+ *条件语句
  *if
  *if else
  */
@@ -533,7 +533,7 @@ useID
     }
     ;
 /*
- *条件表达式
+ *布尔表达式    
  */
 conexplist
     :   conexp{
@@ -556,6 +556,9 @@ conexplist
 
     }
     ;
+/*
+* 关系表达式
+*/
 conexp
     :   ariexp relop ariexp{
         fprintf(fi,"conexp ->  ariexp relop ariexp\n");
